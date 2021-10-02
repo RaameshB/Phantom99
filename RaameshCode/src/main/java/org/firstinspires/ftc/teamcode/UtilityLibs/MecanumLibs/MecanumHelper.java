@@ -9,101 +9,120 @@ import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.RobotConfig;
 import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.TelemetryHelper;
 import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.chassisType;
 
-public class MecanumHelper extends Thread {
+import java.util.ArrayList;
 
+public class MecanumHelper {
     RobotConfig robot;
-
-    TelemetryHelper telemetry;
-
+    TelemetryHelper console;
     LinearOpMode ln;
 
-    public double correctionAngleMod;
-
-    public MecanumHelper(RobotConfig rbt, TelemetryHelper tlm, LinearOpMode linearOpMode) {
-        robot = rbt;
-        telemetry = tlm;
+    public MecanumHelper(RobotConfig robot, TelemetryHelper console, LinearOpMode linearOpMode) {
+        this.robot = robot;
+        this.console = console;
         ln = linearOpMode;
     }
-//    }
-    void driveInternal(float movementDirectionRelativeToFront, double totalPower, double reservedCorrectionPower) {
-        float angle;
-        double frontRight;
-        double frontLeft;
-        double backRight;
-        double backLeft;
-        double angleRad;
 
-        movementDirectionRelativeToFront += 45;
-
-        if (movementDirectionRelativeToFront < 0) {
-            angle = 360 + movementDirectionRelativeToFront;
+    ArrayList<Double> getTheoreticalRatios(double angle) {
+        double ang = angle + 45;
+        ang = -ang;
+        if (ang < 0) {
+            ang = 360 + ang;
         } else {
-            if (movementDirectionRelativeToFront > 360) {
-                angle = movementDirectionRelativeToFront - 360;
-            } else {
-                angle = movementDirectionRelativeToFront;
+            if (ang > 360) {
+                ang = ang - 360;
             }
         }
-        angleRad = Math.toRadians(angle);
-
-        frontRight = Math.sin(angleRad) * Math.sqrt(2) * (totalPower - reservedCorrectionPower);
-        frontLeft = -1 * Math.cos(angleRad) * Math.sqrt(2) * (totalPower - reservedCorrectionPower);
-        backLeft = frontRight;
-        backRight = frontLeft;
-
-        robot.frontRight.setPower(frontRight + correction(AxesOrder.XYZ));
-        robot.frontLeft.setPower(frontLeft - correction(AxesOrder.XYZ));
-        robot.backRight.setPower(backRight + correction(AxesOrder.XYZ));
-        robot.backLeft.setPower(backLeft - correction(AxesOrder.XYZ));
+        double angleRad = Math.toRadians(ang);
+        double ratioOneBR = Math.sin(angleRad);
+        double ratioTwoFR = -1 * Math.cos(angleRad);
+        ArrayList<Double> a = new ArrayList<>();
+        a.add(ratioOneBR);
+        a.add(ratioTwoFR);
+        return(a);
     }
 
-    public void drive(final float movementDirectionRelativeToFront, final double totalPower, final double reservedCorrectionPower) {
-        if(robot.robotType != chassisType.MECANUM) {
-            throw new NullPointerException();
+    double maximizer(ArrayList<Double> ratios, double power) {
+        ratios.get(0);
+        double greatestRatio;
+        if (ratios.get(0) <= ratios.get(1)) {
+            greatestRatio = ratios.get(1);
+        } else {
+            greatestRatio = ratios.get(0);
         }
-
-        Thread iHateThreads = new Thread() {
-            @Override
-            public void run() {
-                double currentPowerAvg = 0;
-                double oldPowerAvg = 0;
-                boolean threadInterrupt = false;
-                while (!threadInterrupt) {
-                    driveInternal(movementDirectionRelativeToFront, totalPower, reservedCorrectionPower);
-                    oldPowerAvg = (robot.frontLeft.getPower() + robot.frontRight.getPower() + robot.backLeft.getPower() + robot.backRight.getPower())/4;
-                    try {
-                        sleep(30);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    currentPowerAvg = (robot.frontLeft.getPower() + robot.frontRight.getPower() + robot.backLeft.getPower() + robot.backRight.getPower())/4;
-                    if (ln.isStopRequested() || oldPowerAvg != currentPowerAvg) {
-                        threadInterrupt = true;
-                    }
-                }
-            }
-        };
-        iHateThreads.start();
+        return 1/greatestRatio*power;
     }
 
-    public double correction (AxesOrder axesOrder) {
-        if(robot.robotType != chassisType.MECANUM) {
-            throw new NullPointerException();
+    public void motorController(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower) {
+        robot.frontLeft.setPower(frontLeftPower);
+        robot.frontRight.setPower(frontRightPower);
+        robot.backLeft.setPower(backLeftPower);
+        robot.backRight.setPower(backRightPower);
+    }
+
+    public void driveWithoutImu (double angle, double power) {
+        ArrayList<Double> ratios = getTheoreticalRatios(angle);
+        double maximizerNumber = maximizer(ratios, power);
+        double FRBL = ratios.get(1) * maximizerNumber;
+        double FLBR = ratios.get(0) * maximizerNumber;
+        motorController(FLBR,FRBL,FRBL,FLBR);
+    }
+
+    public void driveWithImu (double angle, double power) {
+        stopThread();
+        thread1 = new Threader(angle, power);
+        thread1.start();
+    }
+
+    Threader thread1;
+
+    public void stopThread () {
+        threadStop = true;
+        while (!isThreadStop) {
+            ln.idle();
         }
-        //TODO: Make this a lot better
-        double correction = -robot.getAngle()/360/2;
-        //end of TODO
-        robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, axesOrder, AngleUnit.DEGREES);
-        return correction;
+        allowThreadToRun();
     }
+
+    void allowThreadToRun() {
+        threadStop = false;
+    }
+
+    double getCorrection(double targetAngle, double correctionMultiplier) {
+        return targetAngle - robot.getAngle()/180 * correctionMultiplier;
+    }
+
+    boolean threadStop = false;
+
+    boolean isThreadStop = true;
 
     public void stopMotors() {
-        if(robot.robotType != chassisType.MECANUM) {
-            throw new NullPointerException();
-        }
-        robot.frontRight.setPower(0);
-        robot.backRight.setPower(0);
-        robot.frontLeft.setPower(0);
-        robot.backLeft.setPower(0);
+        robot.stopMotors();
+        stopThread();
     }
+
+    class Threader extends Thread {
+
+        double angle;
+        double power;
+
+        Threader (double angle, double power) {
+            this.angle = angle;
+            this.power = power;
+        }
+
+        @Override
+        public void run() {
+            isThreadStop = false;
+            while (!ln.isStopRequested() && !threadStop) {
+                ArrayList<Double> ratios = getTheoreticalRatios(angle);
+                double maximizerNumber = maximizer(ratios, power);
+                double FRBL = ratios.get(1) * maximizerNumber;
+                double FLBR = ratios.get(0) * maximizerNumber;
+                motorController(FLBR - getCorrection(0, 1),FRBL + getCorrection(0, 1),FRBL - getCorrection(0, 1),FLBR + getCorrection(0, 1));
+                yield();
+            }
+            isThreadStop = true;
+        }
+    }
+
 }

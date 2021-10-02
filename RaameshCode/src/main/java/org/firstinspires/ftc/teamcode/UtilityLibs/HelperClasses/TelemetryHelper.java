@@ -15,21 +15,22 @@ public class TelemetryHelper {
 
     int length;
 
-    ArrayList<String> captionsAndLines = new ArrayList<>();
-    ArrayList<Object> dataPts = new ArrayList<>();
-
+    public ArrayList<String> captionsAndLines = new ArrayList<>();
+    public ArrayList<Object> dataPts = new ArrayList<>();
+    public ArrayList<Object> whatIsAdded = new ArrayList<>();
 
     public TelemetryHelper (LinearOpMode lnOpMd) {
         ln = lnOpMd;
-        thread.start();
     }
 
     boolean telemEnabled = false;
 
-    helperThing thread = new helperThing();
+    helperThing threader = new helperThing();
 
+    @Deprecated
     public void enableTelemetry() {
         telemEnabled = true;
+        threader.start();
     }
 
     int i = 0;
@@ -40,6 +41,7 @@ public class TelemetryHelper {
 //        }
         captionsAndLines.add(caption);
         dataPts.add(data);
+        update();
     }
 
     public void addLine(String caption) {
@@ -47,7 +49,8 @@ public class TelemetryHelper {
 //            throw new IllegalArgumentException();
 //        }
         captionsAndLines.add(caption);
-        dataPts.add(" ");
+        dataPts.add("null");
+        update();
     }
 
     public void modData(String caption, Object data) {
@@ -55,6 +58,7 @@ public class TelemetryHelper {
 //            throw new IllegalArgumentException();
 //        }
         dataPts.set(captionsAndLines.indexOf(caption), data);
+        update();
     }
 
     public void modData(String oldCaption, String newCaption, Object data) {
@@ -63,6 +67,7 @@ public class TelemetryHelper {
 //        }
         captionsAndLines.set(captionsAndLines.indexOf(oldCaption), newCaption);
         dataPts.set(captionsAndLines.indexOf(oldCaption), data);
+        update();
     }
 
     public void modLine(String oldCaption, String newCaption) {
@@ -70,45 +75,56 @@ public class TelemetryHelper {
 //            throw new IllegalArgumentException();
 //        }
         captionsAndLines.set(captionsAndLines.indexOf(oldCaption), newCaption);
+        update();
     }
 
     public void removeData(String caption) {
 //        if (!captionsAndLines.contains(caption)) {
 //            throw new IllegalArgumentException();
 //        }
-        ln.telemetry.addLine("got to point 1.6.1");
-        ln.telemetry.update();
         int a = captionsAndLines.indexOf(caption);
         captionsAndLines.remove(a);
-        ln.telemetry.addLine("got to point 1.6.2");
-        ln.telemetry.update();
         dataPts.remove(a);
-        ln.telemetry.addLine("got to point 1.6.3");
-        ln.telemetry.update();
+        update();
+    }
+    void compose() {
+        length = captionsAndLines.size();
+        while (i < length) {
+            if(dataPts.get(i).toString() !=  "null"){
+                ln.telemetry.addData(captionsAndLines.get(i), dataPts.get(i));
+                whatIsAdded.add(captionsAndLines.get(i));
+                whatIsAdded.add(dataPts.get(i));
+                whatIsAdded.add("case1");
+            }
+            if(dataPts.get(i).toString() == "null") {
+                ln.telemetry.addLine(captionsAndLines.get(i));
+                whatIsAdded.add(captionsAndLines.get(i));
+                whatIsAdded.add("case2");
+            }
+            i+=1;
+            whatIsAdded.add(i);
+        }
+        whatIsAdded.add("finish");
+        i = 0;
     }
 
     public void removeLine(String caption) {
         removeData(caption);
+        update();
     }
 
-    protected class helperThing extends Thread{
-        Telemetry tel = new TelemetryImpl(ln);
+    void update() {
+        compose();
+        ln.telemetry.update();
+    }
+
+    class helperThing extends Thread{
         @Override
         public void run() {
-            while(!telemEnabled);
             while (!ln.isStopRequested()) {
                 compose();
-                tel.update();
-            }
-        }
-        void compose() {
-            length = captionsAndLines.size() - 1;
-            while (i < length) {
-                if(dataPts.get(i) != ""){
-                    tel.addData(captionsAndLines.get(i), dataPts.get(i));
-                } else {
-                    tel.addLine(captionsAndLines.get(i));
-                }
+                ln.telemetry.update();
+                yield();
             }
         }
     }

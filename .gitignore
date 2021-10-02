@@ -23,6 +23,10 @@ out/
 .gradle/
 build/
 
+# Unused Modules
+RaameshCode/
+TeamCode/
+
 # Local configuration file (sdk path, etc)
 local.properties
 
