@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses;
+package org.firstinspires.ftc.teamcode;
 
 import android.os.Environment;
 
@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-public class RobotConfig {
+public class PLACEHOLDER {
 
     boolean isInit = false;
 
@@ -20,7 +20,7 @@ public class RobotConfig {
     HardwareMap hwMap;
     LinearOpMode ln;
 
-    public RobotConfig () {
+    public PLACEHOLDER() {
 
     }
 
