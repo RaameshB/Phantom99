@@ -39,9 +39,11 @@ public class RobotConfig {
         ln.telemetry.addLine("Initializing Robot...");
         ln.telemetry.update();
 
+        rightDrive.setMotors("rightDrive1", "rightDrive2", ln.hardwareMap);
+        leftDrive.setMotors("leftDrive1", "leftDrive2", ln.hardwareMap);
 
-        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -51,20 +53,32 @@ public class RobotConfig {
         isInit = true;
 
         ln.telemetry.addLine("Initialization Complete!");
+        ln.telemetry.update();
     }
 
     public void init(HardwareMap hwMap, LinearOpMode ln, initArgs args) {
         ln.telemetry.addLine("Initializing Robot...");
         ln.telemetry.update();
 
+        rightDrive.setMotors("rightDrive1", "rightDrive2", ln.hardwareMap);
+        leftDrive.setMotors("leftDrive1", "leftDrive2", ln.hardwareMap);
 
-        isInit = true;
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         if (args != initArgs.SKIP_IMU_CALIBRATION) {
             InitializeIMUParameters(hwMap, ln);
         }
 
+        isInit = true;
+
         ln.telemetry.addLine("Initialization Complete!");
+        ln.telemetry.update();
     }
 
     void InitializeIMUParameters(HardwareMap hardwareMap, LinearOpMode ln){
