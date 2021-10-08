@@ -41,8 +41,8 @@ public class WestCoastTeleOp extends LinearOpMode {
                 isBumpersPressed = true;
             }
 
-            leftDrivePower *= powerMult;
-            rightDrivePower *= powerMult;
+            leftDrivePower *= powerMult/10;
+            rightDrivePower *= powerMult/10;
 
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
