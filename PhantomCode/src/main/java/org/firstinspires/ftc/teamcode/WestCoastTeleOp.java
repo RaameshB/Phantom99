@@ -13,14 +13,41 @@ public class WestCoastTeleOp extends LinearOpMode {
     RobotConfig robot = new RobotConfig();
     double leftDrivePower;
     double rightDrivePower;
-    float powerMult;
+    float powerMult = 5;
+    boolean isBumpersPressed = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, this);
 
+        waitForStart();
 
-        robot.leftDrive.setPower(leftDrivePower);
-        robot.rightDrive.setPower(rightDrivePower);
+        while(!isStopRequested()) {
+
+            leftDrivePower = gamepad1.left_stick_y;
+            rightDrivePower = gamepad1.right_stick_y;
+
+            if(!gamepad1.right_bumper && !gamepad1.left_bumper) {
+                isBumpersPressed = false;
+            }
+
+            if (gamepad1.right_bumper && !isBumpersPressed && powerMult < 10) {
+                powerMult += 1;
+                isBumpersPressed = true;
+            }
+
+            if (gamepad1.left_bumper && !isBumpersPressed && powerMult > 1) {
+                powerMult -= 1;
+                isBumpersPressed = true;
+            }
+
+            leftDrivePower *= powerMult;
+            rightDrivePower *= powerMult;
+
+            robot.leftDrive.setPower(leftDrivePower);
+            robot.rightDrive.setPower(rightDrivePower);
+
+            idle();
+        }
     }
 }
