@@ -34,5 +34,12 @@ public class MotorCluster {
         motor2.setMode(runMode);
     }
 
+    public void setPower(double power){
+        motor1.setPower(power);
+        motor2.setPower(power);
+
+
+    }
+
 
 }
