@@ -2,14 +2,13 @@ package org.firstinspires.ftc.teamcode.UtilityLibs;
 
 import android.os.Environment;
 import android.view.LayoutInflater;
-
+import org.firstinspires.ftc.teamcode.UtilityLibs.MotorCluster;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -19,8 +18,6 @@ public class RobotConfig {
 
     boolean isInit = false;
 
-
-
     HardwareMap hwMap;
     LinearOpMode ln;
 
@@ -28,15 +25,9 @@ public class RobotConfig {
 
     }
 
-    public DcMotor frontLeft;
-    public DcMotor frontRight;
-    public DcMotor backLeft;
-    public DcMotor backRight;
-    public MotorCluster rightDrive;
 
-    public DcMotor encoderY1;
-    public DcMotor encoderY2;
-    public DcMotor encoderX;
+    public  MotorCluster leftDrive;
+    public MotorCluster rightDrive;
 
     public OpenCvWebcam webcam;
 
@@ -48,39 +39,14 @@ public class RobotConfig {
         ln.telemetry.addLine("Initializing Robot...");
         ln.telemetry.update();
 
-        rightDrive.setMotors("front_right", "back_right", hwMap);
-        frontRight = hwMap.get(DcMotor.class, "front_right");
-        frontLeft  = hwMap.get(DcMotor.class, "front_left");
-        backRight  = hwMap.get(DcMotor.class, "back_right");
-        backLeft   = hwMap.get(DcMotor.class, "back_left");
 
         rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
-        backRight .setDirection(DcMotorSimple.Direction.FORWARD);
-        frontLeft .setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft  .setDirection(DcMotorSimple.Direction.REVERSE);
-
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-        encoderX   = hwMap.get(DcMotor.class, "back_left");
-        encoderY1  = hwMap.get(DcMotor.class, "front_left");
-        encoderY2  = hwMap.get(DcMotor.class, "front_right");
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        encoderY1.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        encoderX.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        encoderY1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        encoderY2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
-
-        encoderX.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        encoderY1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        encoderY2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         isInit = true;
 
@@ -91,35 +57,6 @@ public class RobotConfig {
         ln.telemetry.addLine("Initializing Robot...");
         ln.telemetry.update();
 
-        frontRight = hwMap.get(DcMotor.class, "front_right");
-        frontLeft  = hwMap.get(DcMotor.class, "front_left");
-        backRight  = hwMap.get(DcMotor.class, "back_right");
-        backLeft   = hwMap.get(DcMotor.class, "back_left");
-
-        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
-        backRight .setDirection(DcMotorSimple.Direction.FORWARD);
-        frontLeft .setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft  .setDirection(DcMotorSimple.Direction.REVERSE);
-
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-        encoderX   = hwMap.get(DcMotor.class, "back_left");
-        encoderY1  = hwMap.get(DcMotor.class, "front_left");
-        encoderY2  = hwMap.get(DcMotor.class, "front_right");
-
-        encoderY1.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        encoderX.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        encoderY1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        encoderY2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        encoderX.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        encoderY1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        encoderY2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         isInit = true;
 
