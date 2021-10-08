@@ -32,6 +32,7 @@ public class RobotConfig {
     public DcMotor frontRight;
     public DcMotor backLeft;
     public DcMotor backRight;
+    public MotorCluster rightDrive;
 
     public DcMotor encoderY1;
     public DcMotor encoderY2;
@@ -47,11 +48,13 @@ public class RobotConfig {
         ln.telemetry.addLine("Initializing Robot...");
         ln.telemetry.update();
 
+        rightDrive.setMotors("front_right", "back_right", hwMap);
         frontRight = hwMap.get(DcMotor.class, "front_right");
         frontLeft  = hwMap.get(DcMotor.class, "front_left");
         backRight  = hwMap.get(DcMotor.class, "back_right");
         backLeft   = hwMap.get(DcMotor.class, "back_left");
 
+        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         backRight .setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft .setDirection(DcMotorSimple.Direction.REVERSE);
@@ -72,6 +75,8 @@ public class RobotConfig {
         encoderX.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         encoderY1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         encoderY2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
 
         encoderX.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         encoderY1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
