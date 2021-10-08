@@ -47,6 +47,8 @@ public class WestCoastTeleOp extends LinearOpMode {
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
 
+            telemetry.addData("powerMult: ", powerMult);
+            telemetry.update();
             idle();
         }
     }

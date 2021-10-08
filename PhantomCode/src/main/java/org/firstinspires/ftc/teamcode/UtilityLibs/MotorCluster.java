@@ -14,8 +14,8 @@ public class MotorCluster {
 
     public void setMotors(String motor1Name, String motor2Name, HardwareMap aHwMap) {
         hardwareMap = aHwMap;
-        hardwareMap.get(DcMotor.class, motor1Name);
-        hardwareMap.get(DcMotor.class, motor2Name);
+        motor1 = hardwareMap.get(DcMotor.class, motor1Name);
+        motor2 = hardwareMap.get(DcMotor.class, motor2Name);
     }
 
     public void setDirection(DcMotorSimple.Direction direction) {

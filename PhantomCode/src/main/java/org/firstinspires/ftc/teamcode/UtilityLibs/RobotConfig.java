@@ -26,8 +26,8 @@ public class RobotConfig {
     }
 
 
-    public  MotorCluster leftDrive;
-    public MotorCluster rightDrive;
+    public  MotorCluster leftDrive = new MotorCluster();
+    public MotorCluster rightDrive =  new MotorCluster();
 
     public OpenCvWebcam webcam;
 
@@ -42,8 +42,8 @@ public class RobotConfig {
         rightDrive.setMotors("rightDrive1", "rightDrive2", ln.hardwareMap);
         leftDrive.setMotors("leftDrive1", "leftDrive2", ln.hardwareMap);
 
-        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
