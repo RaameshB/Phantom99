@@ -11,10 +11,13 @@ import org.firstinspires.ftc.teamcode.UtilityLibs.RobotConfig;
 public class WestCoastTeleOp extends LinearOpMode {
 
     RobotConfig robot = new RobotConfig();
+
     double leftDrivePower;
     double rightDrivePower;
+    double tempPower;
     float powerMult = 5;
     boolean isBumpersPressed = false;
+    boolean isAPressed = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -23,6 +26,18 @@ public class WestCoastTeleOp extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested()) {
+
+            if(isAPressed && !gamepad1.a){
+                isAPressed = false;
+            }
+
+
+            if(gamepad1.a && !isAPressed){
+                tempPower = rightDrivePower;
+                rightDrivePower = -leftDrivePower;
+                leftDrivePower = -tempPower;
+                isAPressed = true;
+            }
 
             leftDrivePower = gamepad1.left_stick_y;
             rightDrivePower = gamepad1.right_stick_y;
@@ -41,8 +56,11 @@ public class WestCoastTeleOp extends LinearOpMode {
                 isBumpersPressed = true;
             }
 
+
+
             leftDrivePower *= powerMult/10;
             rightDrivePower *= powerMult/10;
+
 
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
@@ -50,6 +68,7 @@ public class WestCoastTeleOp extends LinearOpMode {
             telemetry.addData("powerMult: ", powerMult);
             telemetry.update();
             idle();
+
         }
     }
 }
