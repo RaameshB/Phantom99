@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.openftc.easyopencv.OpenCvWebcam;
+//import org.openftc.easyopencv.OpenCvWebcam;
 
 
 public class RobotConfig {
@@ -29,7 +29,7 @@ public class RobotConfig {
     public  MotorCluster leftDrive = new MotorCluster();
     public MotorCluster rightDrive =  new MotorCluster();
 
-    public OpenCvWebcam webcam;
+//    public OpenCvWebcam webcam;
 
     public VuforiaLocalizer vuforia;
 

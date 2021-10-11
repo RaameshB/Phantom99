@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.openftc.easyopencv.OpenCvWebcam;
+//import org.openftc.easyopencv.OpenCvWebcam;
 
 
 public class PLACEHOLDER {
@@ -30,7 +30,7 @@ public class PLACEHOLDER {
     public DcMotor backRight;
     public DcMotor leftMotor;
     public DcMotor rightMotor;
-    public OpenCvWebcam webcam;
+//    public OpenCvWebcam webcam;
 
     public VuforiaLocalizer vuforia;
 

@@ -16,6 +16,7 @@ public class WestCoastTeleOp extends LinearOpMode {
     double rightDrivePower;
     double tempPower;
     float powerMult = 5;
+
     boolean isBumpersPressed = false;
     boolean isAPressed = false;
 
