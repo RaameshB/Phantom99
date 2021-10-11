@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.UtilityLibs.MotorCluster;
@@ -17,6 +18,8 @@ public class CarouselTel extends LinearOpMode {
     DcMotor leftDrive;
     DcMotor rightDrive;
     DcMotor caer;
+    DcMotor intake;
+    double intakePower;
     double leftDrivePower;
     double rightDrivePower;
     double tempPower;
@@ -37,18 +40,8 @@ public class CarouselTel extends LinearOpMode {
 
         while (!isStopRequested()) {
 
-            if (gamepad1.dpad_up) {
-                carouselSpinnerPower = -0.7;
-
-            }  else {
-                if (gamepad1.dpad_down) {
-                    carouselSpinnerPower = 0.7;
-
-                } else {
-                    carouselSpinnerPower = 0;
-                }
-            }
-
+            carouselSpinnerPower = gamepad2.left_stick_y;
+            intakePower = gamepad2.right_stick_y;
 
 
 
@@ -84,7 +77,8 @@ public class CarouselTel extends LinearOpMode {
 
             leftDrivePower *= powerMult / 10;
             rightDrivePower *= powerMult / 10;
-
+            leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+            rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
             leftDrive.setPower(leftDrivePower);

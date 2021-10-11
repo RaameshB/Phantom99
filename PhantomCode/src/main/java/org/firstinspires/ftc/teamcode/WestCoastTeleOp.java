@@ -28,16 +28,11 @@ public class WestCoastTeleOp extends LinearOpMode {
 
         while(!isStopRequested()) {
 
+            carouselSpinnerPower = gamepad2.left_stick_y;
+            intakePower = gamepad2.right_stick_y;
+
             if(isAPressed && !gamepad1.a){
                 isAPressed = false;
-            }
-
-
-            if(gamepad1.a && !isAPressed){
-                tempPower = rightDrivePower;
-                rightDrivePower = -leftDrivePower;
-                leftDrivePower = -tempPower;
-                isAPressed = true;
             }
 
             leftDrivePower = gamepad1.left_stick_y;
@@ -57,11 +52,15 @@ public class WestCoastTeleOp extends LinearOpMode {
                 isBumpersPressed = true;
             }
 
-
-
             leftDrivePower *= powerMult/10;
             rightDrivePower *= powerMult/10;
 
+            if(gamepad1.a && !isAPressed){
+                tempPower = rightDrivePower;
+                rightDrivePower = -leftDrivePower;
+                leftDrivePower = -tempPower;
+                isAPressed = true;
+            }
 
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
