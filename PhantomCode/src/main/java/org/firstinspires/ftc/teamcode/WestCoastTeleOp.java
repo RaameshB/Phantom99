@@ -15,10 +15,19 @@ public class WestCoastTeleOp extends LinearOpMode {
     double leftDrivePower;
     double rightDrivePower;
     double tempPower;
-    float powerMult = 5;
+    float powerMult = 7;
+    double carouselSpinnerPower;
+    double intakePower;
 
+    DcMotor caer;
+
+    DcMotor intake;
+    boolean isDpadDownPressed = false;
+    boolean isDpadUpPressed = false;
     boolean isBumpersPressed = false;
     boolean isAPressed = false;
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -64,6 +73,8 @@ public class WestCoastTeleOp extends LinearOpMode {
 
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
+            caer.setPower(carouselSpinnerPower);
+            intake.setPower(intakePower);
 
             telemetry.addData("powerMult: ", powerMult);
             telemetry.update();
