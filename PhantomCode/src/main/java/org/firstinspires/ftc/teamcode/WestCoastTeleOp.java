@@ -19,15 +19,11 @@ public class WestCoastTeleOp extends LinearOpMode {
     double carouselSpinnerPower;
     double intakePower;
 
-    DcMotor caer;
-
-    DcMotor intake;
-    boolean isDpadDownPressed = false;
-    boolean isDpadUpPressed = false;
+    //DcMotor caer;
+    //DcMotor intake;
     boolean isBumpersPressed = false;
     boolean isAPressed = false;
-
-
+    
 
     @Override
     public void runOpMode() throws InterruptedException {
