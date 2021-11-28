@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.teamcode.UtilityLibs.MotorCluster;
 import org.firstinspires.ftc.teamcode.UtilityLibs.RobotConfig;
 
@@ -18,12 +20,16 @@ public class WestCoastTeleOp extends LinearOpMode {
     float powerMult = 7;
     double carouselSpinnerPower;
     double intakePower;
-
+    SliddyEnum Pos;
     DcMotor caer;
     DcMotor intake;
     boolean isBumpersPressed = false;
     boolean isAPressed = false;
-    DcMotor slider;
+    boolean isDpadUp2;
+    boolean isDpadDown2;
+    DcMotor sliderMotor;
+    Servo basketDump;
+    String lol  =  "lol";
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -31,7 +37,19 @@ public class WestCoastTeleOp extends LinearOpMode {
 
         waitForStart();
 
+        switch (Pos){
+            case TOP: //move to top;
+            break;
+            case MID: //move to mid;
+            break;
+            case BOT: //sliiiiiiiiide to bottom;
+            break;
+            default: telemetry.addData("we got hit by a cosmic ray" , lol);
+        }
+
         while(!isStopRequested()) {
+
+
 
             carouselSpinnerPower = gamepad2.left_stick_y;
             intakePower = gamepad2.right_stick_y;
