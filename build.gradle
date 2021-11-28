@@ -16,6 +16,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
+
     }
 }
 
@@ -43,6 +44,8 @@ dependencies {
     doc 'org.firstinspires.ftc:FtcCommon:6.2.0'
     doc 'org.firstinspires.ftc:OnBotJava:6.2.0'
     doc 'org.firstinspires.ftc:Inspection:6.2.0'
+//    compileOnly group: 'opencv', name: 'opencv', version: '4.1.1'
+
 }
 
 task extractJavadoc {

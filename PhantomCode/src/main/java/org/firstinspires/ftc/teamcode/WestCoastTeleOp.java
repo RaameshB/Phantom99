@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode;
-
+ 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -19,11 +19,11 @@ public class WestCoastTeleOp extends LinearOpMode {
     double carouselSpinnerPower;
     double intakePower;
 
-    //DcMotor caer;
-    //DcMotor intake;
+    DcMotor caer;
+    DcMotor intake;
     boolean isBumpersPressed = false;
     boolean isAPressed = false;
-    
+    DcMotor slider;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -69,10 +69,12 @@ public class WestCoastTeleOp extends LinearOpMode {
 
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
-            //caer.setPower(carouselSpinnerPower);
-            //intake.setPower(intakePower);
+            caer.setPower(carouselSpinnerPower);
+            intake.setPower(intakePower);
 
             telemetry.addData("powerMult: ", powerMult);
+            telemetry.addData("intakePower", intakePower);
+            telemetry.addData("carouselSpinner", carouselSpinnerPower);
             telemetry.update();
             idle();
 
