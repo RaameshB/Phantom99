@@ -35,9 +35,19 @@ public class MotorCluster {
     public void setPower(double power){
         motor1.setPower(power);
         motor2.setPower(power);
-
-
     }
 
+    public void setTargetPosition(int targetPosition) {
+        motor1.setTargetPosition(targetPosition);
+        motor2.setTargetPosition(targetPosition);
+    }
+
+    public boolean isBusy() {
+        return motor1.isBusy() || motor2.isBusy();
+    }
+
+    public double getAvgPosition() {
+        return (double) (motor1.getCurrentPosition() + motor2.getCurrentPosition())/2;
+    }
 
 }

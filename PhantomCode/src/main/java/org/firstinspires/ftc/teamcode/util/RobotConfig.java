@@ -38,13 +38,12 @@ public class RobotConfig {
         rightDrive.setMotors("rightDrive1", "rightDrive2", ln.hardwareMap);
         leftDrive.setMotors("leftDrive1", "leftDrive2", ln.hardwareMap);
 
-        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
 
         isInit = true;
 
@@ -67,7 +66,7 @@ public class RobotConfig {
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        if (args != initArgs.SKIP_IMU_CALIBRATION) {
+        if (args == initArgs.CALIBRATE_IMU) {
             InitializeIMUParameters(hwMap, ln);
         }
 
