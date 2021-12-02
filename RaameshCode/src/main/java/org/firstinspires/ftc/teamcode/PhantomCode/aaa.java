@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.PhantomCode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.RobotConfig;
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.TelemetryHelper;
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.chassisType;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.RobotConfig;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.TelemetryHelper;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.chassisType;
 
 @TeleOp(name = "aaaaaaaaaaaaaaaaaa")
 public class aaa extends LinearOpMode {

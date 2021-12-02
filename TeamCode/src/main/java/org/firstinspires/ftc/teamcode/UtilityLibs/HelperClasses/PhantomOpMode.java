@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses;
+package org.firstinspires.ftc.teamcode.util.HelperClasses;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.UtilityLibs.MecanumLibs.MecanumHelper;
+import org.firstinspires.ftc.teamcode.util.MecanumLibs.MecanumHelper;
 
 public abstract class PhantomOpMode extends LinearOpMode {
 

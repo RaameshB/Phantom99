@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.PhantomOpMode;
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.chassisType;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.PhantomOpMode;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.chassisType;
 
 //Comment out this line if you want to run the program
 //@Disabled

@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.PhantomCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.PhantomOpMode;
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.chassisType;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.PhantomOpMode;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.chassisType;
 
 @Autonomous (name = "MecanumTestClass")
 public class MecanumTestClass extends PhantomOpMode {

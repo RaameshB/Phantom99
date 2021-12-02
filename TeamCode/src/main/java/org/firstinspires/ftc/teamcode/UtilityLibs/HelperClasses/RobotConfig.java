@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses;
+package org.firstinspires.ftc.teamcode.util.HelperClasses;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;

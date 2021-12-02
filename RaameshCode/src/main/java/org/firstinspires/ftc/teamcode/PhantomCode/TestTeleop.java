@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.PhantomCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.PhantomOpMode;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.PhantomOpMode;
 
 @TeleOp(name="mecanumTeleop")
 public class TestTeleop extends PhantomOpMode {

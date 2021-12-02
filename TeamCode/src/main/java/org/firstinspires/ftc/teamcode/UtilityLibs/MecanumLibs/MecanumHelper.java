@@ -1,13 +1,13 @@
-package org.firstinspires.ftc.teamcode.UtilityLibs.MecanumLibs;
+package org.firstinspires.ftc.teamcode.util.MecanumLibs;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.RobotConfig;
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.TelemetryHelper;
-import org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses.chassisType;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.RobotConfig;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.TelemetryHelper;
+import org.firstinspires.ftc.teamcode.util.HelperClasses.chassisType;
 
 public class MecanumHelper extends Thread {
 

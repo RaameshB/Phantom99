@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.UtilityLibs.Vision.opencv;
+package org.firstinspires.ftc.teamcode.util.Vision.opencv;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.UtilityLibs.HelperClasses;
+package org.firstinspires.ftc.teamcode.util.HelperClasses;
 
 import android.os.Environment;
 
@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
-import org.firstinspires.ftc.teamcode.UtilityLibs.Vision.opencv.PhantomPipeline;
+import org.firstinspires.ftc.teamcode.util.Vision.opencv.PhantomPipeline;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
