@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.util.MotorCluster;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
 import org.firstinspires.ftc.teamcode.util.SliddyEnum;
 
@@ -30,9 +31,11 @@ public class  WestCoastTeleOp extends LinearOpMode {
     float powerMult = 7;
 
     boolean isBumpersPressed = false;
-//    boolean isAPressed = false;
+    boolean isAPressed = false;
     boolean isDpadUp2;
     boolean isDpadDown2;
+    boolean isBPressed;
+    boolean direction = true;
     DcMotor sliderMotor;
 
 
@@ -60,9 +63,7 @@ public class  WestCoastTeleOp extends LinearOpMode {
             carouselSpinnerPower = gamepad2.left_stick_y;
             intakePower = gamepad2.right_stick_y;
 
-//            if(isAPressed && !gamepad1.a){
-//                isAPressed = false;
-//            }
+
 
             leftDrivePower = gamepad1.left_stick_y;
             rightDrivePower = gamepad1.right_stick_y;
@@ -91,10 +92,38 @@ public class  WestCoastTeleOp extends LinearOpMode {
 //                isAPressed = true;
 //            }
 
+
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
             carousel.setPower(carouselSpinnerPower);
 //            intake.setPower(intakePower);
+
+            if(isAPressed && !gamepad1.a){
+                isAPressed = false;
+            }
+
+            if (gamepad1.a && !isAPressed){
+                MotorCluster tmp;
+                tmp = robot.rightDrive;
+                robot.rightDrive = robot.leftDrive;
+                robot.leftDrive = tmp;
+                isAPressed = true;
+            }
+
+            if(isBPressed && !gamepad1.b){
+                isBPressed = false;
+            }
+
+            if (gamepad1.b && !isBPressed){
+                isBPressed = true;
+
+                    leftDrivePower = -leftDrivePower;
+
+                    rightDrivePower = -rightDrivePower;
+
+
+            }
+
 
             telemetry.addData("powerMult: ", powerMult);
             telemetry.addData("intakePower", intakePower);

@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 //import org.openftc.easyopencv.OpenCvWebcam;
 
 
-public class RobotConfig {
+public class   RobotConfig {
 
     boolean isInit = false;
 
