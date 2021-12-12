@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.production.telops;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
@@ -10,42 +11,47 @@ import org.firstinspires.ftc.teamcode.util.SliddyEnum;
 
 
 @TeleOp
-public class WestCoastTeleOp extends LinearOpMode {
+public class  WestCoastTeleOp extends LinearOpMode {
 
     RobotConfig robot = new RobotConfig();
 
     double leftDrivePower;
     double rightDrivePower;
     double tempPower;
-    float powerMult = 7;
     double carouselSpinnerPower;
     double intakePower;
+
+
     SliddyEnum Pos;
-    DcMotor caer;
-    DcMotor intake;
+    DcMotor carousel;
+//    DcMotor intake;
+
+    Servo basketDump;
+    float powerMult = 7;
+
     boolean isBumpersPressed = false;
-    boolean isAPressed = false;
+//    boolean isAPressed = false;
     boolean isDpadUp2;
     boolean isDpadDown2;
     DcMotor sliderMotor;
-    Servo basketDump;
-    String lol  =  "lol";
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, this);
-
+        carousel = hardwareMap.get(DcMotor.class, "carousel");
         waitForStart();
 
-        switch (Pos){
-            case TOP: //move to top;
-            break;
-            case MID: //move to mid;
-            break;
-            case BOT: //sliiiiiiiiide to bottom;
-            break;
-            default: telemetry.addData("we got hit by a cosmic ray" , lol);
-        }
+//        switch (Pos){
+//            case TOP: //move to top;
+//            break;
+//            case MID: //move to mid;
+//            break;
+//            case BOT: //sliiiiiiiiide to bottom;
+//            break;
+//            default:
+//        }
 
         while(!isStopRequested()) {
 
@@ -54,9 +60,9 @@ public class WestCoastTeleOp extends LinearOpMode {
             carouselSpinnerPower = gamepad2.left_stick_y;
             intakePower = gamepad2.right_stick_y;
 
-            if(isAPressed && !gamepad1.a){
-                isAPressed = false;
-            }
+//            if(isAPressed && !gamepad1.a){
+//                isAPressed = false;
+//            }
 
             leftDrivePower = gamepad1.left_stick_y;
             rightDrivePower = gamepad1.right_stick_y;
@@ -78,17 +84,17 @@ public class WestCoastTeleOp extends LinearOpMode {
             leftDrivePower *= powerMult/10;
             rightDrivePower *= powerMult/10;
 
-            if(gamepad1.a && !isAPressed){
-                tempPower = rightDrivePower;
-                rightDrivePower = -leftDrivePower;
-                leftDrivePower = -tempPower;
-                isAPressed = true;
-            }
+//            if(gamepad1.a && !isAPressed){
+//                tempPower = rightDrivePower;
+//                rightDrivePower = -leftDrivePower;
+//                leftDrivePower = -tempPower;
+//                isAPressed = true;
+//            }
 
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
-            caer.setPower(carouselSpinnerPower);
-            intake.setPower(intakePower);
+            carousel.setPower(carouselSpinnerPower);
+//            intake.setPower(intakePower);
 
             telemetry.addData("powerMult: ", powerMult);
             telemetry.addData("intakePower", intakePower);
