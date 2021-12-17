@@ -28,9 +28,11 @@ public class  WestCoastTeleOp extends LinearOpMode {
 //    DcMotor intake;
 
     Servo basketDump;
-    float powerMult = 7;
+    float powerMult = 10;
+    float powerMult2 = 10;
 
     boolean isBumpersPressed = false;
+    boolean isBumpersPressed2 = false;
     boolean isAPressed = false;
     boolean isDpadUp2;
     boolean isDpadDown2;
@@ -82,6 +84,20 @@ public class  WestCoastTeleOp extends LinearOpMode {
                 isBumpersPressed = true;
             }
 
+            if(!gamepad2.right_bumper && !gamepad2.left_bumper) {
+                isBumpersPressed2 = false;
+            }
+
+            if (gamepad2.right_bumper && !isBumpersPressed2 && powerMult2 < 10) {
+                powerMult2 += 1;
+                isBumpersPressed2 = true;
+            }
+
+            if (gamepad2.left_bumper && !isBumpersPressed2 && powerMult2 > 1) {
+                powerMult2 -= 1;
+                isBumpersPressed = true;
+            }
+            
             leftDrivePower *= powerMult/10;
             rightDrivePower *= powerMult/10;
 
@@ -96,33 +112,46 @@ public class  WestCoastTeleOp extends LinearOpMode {
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
             carousel.setPower(carouselSpinnerPower);
+
+            if(gamepad2.dpad_left) {
+                carousel.setPower(1.0 * powerMult2);
+            } else {
+                if (gamepad2.dpad_right) {
+                    carousel.setPower(-1.0 * powerMult2);
+                } else {
+                    carousel.setPower(0);
+                }
+            }
+
+            //
+//
 //            intake.setPower(intakePower);
 
-            if(isAPressed && !gamepad1.a){
-                isAPressed = false;
-            }
-
-            if (gamepad1.a && !isAPressed){
-                MotorCluster tmp;
-                tmp = robot.rightDrive;
-                robot.rightDrive = robot.leftDrive;
-                robot.leftDrive = tmp;
-                isAPressed = true;
-            }
-
-            if(isBPressed && !gamepad1.b){
-                isBPressed = false;
-            }
-
-            if (gamepad1.b && !isBPressed){
-                isBPressed = true;
-
-                    leftDrivePower = -leftDrivePower;
-
-                    rightDrivePower = -rightDrivePower;
-
-
-            }
+//            if(isAPressed && !gamepad1.a){
+//                isAPressed = false;
+//            }
+//
+//            if (gamepad1.a && !isAPressed){
+//                MotorCluster tmp;
+//                tmp = robot.rightDrive;
+//                robot.rightDrive = robot.leftDrive;
+//                robot.leftDrive = tmp;
+//                isAPressed = true;
+//            }
+//
+//            if(isBPressed && !gamepad1.b){
+//                isBPressed = false;
+//            }
+//
+//            if (gamepad1.b && !isBPressed){
+//                isBPressed = true;
+//
+//                    leftDrivePower = -leftDrivePower;
+//
+//                    rightDrivePower = -rightDrivePower;
+//
+//
+//            }
 
 
             telemetry.addData("powerMult: ", powerMult);

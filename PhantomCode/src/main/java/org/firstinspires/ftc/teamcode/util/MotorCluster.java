@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class MotorCluster {
 
     HardwareMap hardwareMap;
-    DcMotor motor1;
-    DcMotor motor2;
+    public DcMotor motor1;
+    public DcMotor motor2;
 
     public void setMotors(String motor1Name, String motor2Name, HardwareMap aHwMap) {
         hardwareMap = aHwMap;
