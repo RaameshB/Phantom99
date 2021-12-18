@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.production.autons;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.ChassisController;
@@ -21,22 +23,47 @@ public class AutonForCompetition extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 4;
     static final double COUNTS_PER_INCH = (COUNTS_PER_REVOLUTION * SPROCKET_REDUCTION * GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
+    DcMotor carousel;
+    Servo bucket;
+
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
+        carousel = hardwareMap.dcMotor.get("carousel");
+        carousel.setDirection(DcMotorSimple.Direction.REVERSE);
+        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bucket = hardwareMap.servo.get("bucket");
+
         robot.init(hardwareMap, this, initArgs.CALIBRATE_IMU);
         ImuController imuController = new ImuController(robot,this);
         ChassisController chassis = new ChassisController(robot.leftDrive, robot.rightDrive, this);
-
         waitForStart();
+        encoderDrive(0.5, -8, -8, 2);
+        imuController.rotate(-35, 0.5);
+        encoderDrive(0.4, 13.7, 13.7, 5);
+        sleep(1000);
+        carousel.setPower(1);
+        sleep(2500);
+        carousel.setPower(0);
+        sleep(500);
+        encoderDrive(0.5, -38.3, -38.3, 5);
+//        sleep(1000);
+        bucket.setPosition(1.0);
+        sleep(2000);
+        encoderDrive(0.5, 7, 7, 5);
+        imuController.rotate(-30, 0.5);
+        encoderDrive(0.75, -95, -95, 10);
+        bucket.setPosition(0.5);
 
-        encoderDrive(0.75 , -37, -37 , 10);
-        encoderDrive(0.75 , 5, 5 , 5);
-        imuController.rotate(-60, 0.5);
-        encoderDrive(0.75 , -35, -37 , 10);
-        imuController.rotate(30, 0.5);
-        encoderDrive(0.75 , -35, -37 , 10);
+//        encoderDrive(0.75 , -37, -37 , 10);
+//        encoderDrive(0.75 , 5, 5 , 5);
+//        imuController.rotate(-60, 0.5);
+//        encoderDrive(0.75 , -35, -37 , 10);
+//        imuController.rotate(30, 0.5);
+//        encoderDrive(0.75 , -35, -37 , 10);
+
+
         //chassis.encoderDrive(-0.75, -37, 3);2
         //chassis.encoderDrive(0.75, 5, 3);
         //imuController.rotate(-60, 0.5);
