@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.util.ImuController;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
 import org.firstinspires.ftc.teamcode.util.initArgs;
 
-@Autonomous
+@Autonomous(group = "final")
 public class AutonForCompetition extends LinearOpMode {
 
     RobotConfig robot = new RobotConfig();
@@ -36,12 +36,17 @@ public class AutonForCompetition extends LinearOpMode {
         bucket = hardwareMap.servo.get("bucket");
 
         robot.init(hardwareMap, this, initArgs.CALIBRATE_IMU);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ImuController imuController = new ImuController(robot,this);
-        ChassisController chassis = new ChassisController(robot.leftDrive, robot.rightDrive, this);
+//        ChassisController chassis = new ChassisController(robot.leftDrive, robot.rightDrive, this);
         waitForStart();
         encoderDrive(0.5, -8, -8, 2);
         imuController.rotate(-35, 0.5);
-        encoderDrive(0.4, 13.7, 13.7, 5);
+        encoderDrive(0.4, 11.7, 11.7, 5);
+        encoderDrive(0.2, 2, 2, 3);
         sleep(1000);
         carousel.setPower(1);
         sleep(2500);
@@ -51,9 +56,9 @@ public class AutonForCompetition extends LinearOpMode {
 //        sleep(1000);
         bucket.setPosition(1.0);
         sleep(2000);
-        encoderDrive(0.5, 7, 7, 5);
+        encoderDrive(0.5, 10, 10, 5);
         imuController.rotate(-30, 0.5);
-        encoderDrive(0.75, -95, -95, 10);
+        encoderDrive(0.75, -75, -75, 10);
         bucket.setPosition(0.5);
 
 //        encoderDrive(0.75 , -37, -37 , 10);
@@ -117,6 +122,9 @@ public class AutonForCompetition extends LinearOpMode {
             // Stop all motion;
             robot.leftDrive.setPower(0);
             robot.rightDrive.setPower(0);
+
+            robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             // Turn off RUN_TO_POSITION
             robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.util.RobotConfig;
 import org.firstinspires.ftc.teamcode.util.SliddyEnum;
 
 
-@TeleOp
+@TeleOp(group = "final")
 public class  WestCoastTeleOp extends LinearOpMode {
 
     RobotConfig robot = new RobotConfig();
@@ -46,6 +46,8 @@ public class  WestCoastTeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, this);
         carousel = hardwareMap.get(DcMotor.class, "carousel");
+        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE
+        );
         waitForStart();
 
 //        switch (Pos){
@@ -62,8 +64,8 @@ public class  WestCoastTeleOp extends LinearOpMode {
 
 
 
-            carouselSpinnerPower = gamepad2.left_stick_y;
-            intakePower = gamepad2.right_stick_y;
+//            carouselSpinnerPower = gamepad1.left_stick_y;
+            intakePower = gamepad1.right_stick_y;
 
 
 
@@ -84,16 +86,16 @@ public class  WestCoastTeleOp extends LinearOpMode {
                 isBumpersPressed = true;
             }
 
-            if(!gamepad2.right_bumper && !gamepad2.left_bumper) {
+            if(!gamepad1.right_bumper && !gamepad1.left_bumper) {
                 isBumpersPressed2 = false;
             }
 
-            if (gamepad2.right_bumper && !isBumpersPressed2 && powerMult2 < 10) {
+            if (gamepad1.right_bumper && !isBumpersPressed2 && powerMult2 < 10) {
                 powerMult2 += 1;
                 isBumpersPressed2 = true;
             }
 
-            if (gamepad2.left_bumper && !isBumpersPressed2 && powerMult2 > 1) {
+            if (gamepad1.left_bumper && !isBumpersPressed2 && powerMult2 > 1) {
                 powerMult2 -= 1;
                 isBumpersPressed = true;
             }
@@ -111,16 +113,12 @@ public class  WestCoastTeleOp extends LinearOpMode {
 
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
-            carousel.setPower(carouselSpinnerPower);
+//            carousel.setPower(carouselSpinnerPower);
 
-            if(gamepad2.dpad_left) {
-                carousel.setPower(1.0 * powerMult2);
+            if(gamepad1.right_trigger > 0.5) {
+                carousel.setPower(-1.0);
             } else {
-                if (gamepad2.dpad_right) {
-                    carousel.setPower(-1.0 * powerMult2);
-                } else {
-                    carousel.setPower(0);
-                }
+                carousel.setPower(0);
             }
 
             //
