@@ -20,12 +20,13 @@ public class  WestCoastTeleOp extends LinearOpMode {
     double rightDrivePower;
     double tempPower;
     double carouselSpinnerPower;
-    double intakePower;
+   // double intakePower;
 
 
     SliddyEnum Pos;
     DcMotor carousel;
 //    DcMotor intake;
+    Servo bucket;
 
     Servo basketDump;
     float powerMult = 10;
@@ -47,7 +48,7 @@ public class  WestCoastTeleOp extends LinearOpMode {
         robot.init(hardwareMap, this);
         carousel = hardwareMap.get(DcMotor.class, "carousel");
         waitForStart();
-
+        bucket = hardwareMap.servo.get("bucket");
 //        switch (Pos){
 //            case TOP: //move to top;
 //            break;
@@ -63,8 +64,8 @@ public class  WestCoastTeleOp extends LinearOpMode {
 
 
             carouselSpinnerPower = gamepad2.left_stick_y;
-            intakePower = gamepad2.right_stick_y;
-
+         //   intakePower = gamepad2.right_stick_y;
+            bucket.setPosition(gamepad2.right_stick_y);
 
 
             leftDrivePower = gamepad1.left_stick_y;
@@ -101,13 +102,6 @@ public class  WestCoastTeleOp extends LinearOpMode {
             leftDrivePower *= powerMult/10;
             rightDrivePower *= powerMult/10;
 
-//            if(gamepad1.a && !isAPressed){
-//                tempPower = rightDrivePower;
-//                rightDrivePower = -leftDrivePower;
-//                leftDrivePower = -tempPower;
-//                isAPressed = true;
-//            }
-
 
             robot.leftDrive.setPower(leftDrivePower);
             robot.rightDrive.setPower(rightDrivePower);
@@ -123,39 +117,11 @@ public class  WestCoastTeleOp extends LinearOpMode {
                 }
             }
 
-            //
-//
-//            intake.setPower(intakePower);
 
-//            if(isAPressed && !gamepad1.a){
-//                isAPressed = false;
-//            }
-//
-//            if (gamepad1.a && !isAPressed){
-//                MotorCluster tmp;
-//                tmp = robot.rightDrive;
-//                robot.rightDrive = robot.leftDrive;
-//                robot.leftDrive = tmp;
-//                isAPressed = true;
-//            }
-//
-//            if(isBPressed && !gamepad1.b){
-//                isBPressed = false;
-//            }
-//
-//            if (gamepad1.b && !isBPressed){
-//                isBPressed = true;
-//
-//                    leftDrivePower = -leftDrivePower;
-//
-//                    rightDrivePower = -rightDrivePower;
-//
-//
-//            }
 
 
             telemetry.addData("powerMult: ", powerMult);
-            telemetry.addData("intakePower", intakePower);
+          //  telemetry.addData("intakePower", intakePower);
             telemetry.addData("carouselSpinner", carouselSpinnerPower);
             telemetry.update();
             idle();

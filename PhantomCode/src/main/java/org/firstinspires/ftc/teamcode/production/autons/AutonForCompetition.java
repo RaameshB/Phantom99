@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.production.autons;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import  com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -20,7 +20,7 @@ public class AutonForCompetition extends LinearOpMode {
     static final double COUNTS_PER_REVOLUTION = 1120;
     static final double SPROCKET_REDUCTION = 1.5;
     static final double GEAR_REDUCTION = 0.5;
-    static final double WHEEL_DIAMETER_INCHES = 4;
+fgc    static final double WHEEL_DIAMETER_INCHES = 4;
     static final double COUNTS_PER_INCH = (COUNTS_PER_REVOLUTION * SPROCKET_REDUCTION * GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
     DcMotor carousel;
