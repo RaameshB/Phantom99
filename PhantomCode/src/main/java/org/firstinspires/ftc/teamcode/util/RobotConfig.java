@@ -35,6 +35,8 @@ public class   RobotConfig {
     public DcMotor carousel;
     public Servo bucket;
 
+    public DcMotor slider;
+
     public void init(HardwareMap hwMap, LinearOpMode ln) {
         ln.telemetry.addLine("Initializing Robot...");
         ln.telemetry.update();
@@ -55,6 +57,8 @@ public class   RobotConfig {
         carousel.setDirection(DcMotorSimple.Direction.REVERSE);
         carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         bucket = hwMap.servo.get("bucket");
+
+        slider = hwMap.dcMotor.get("sliderMotor");
 
         ln.telemetry.addLine("Initialization Complete!");
         ln.telemetry.update();
