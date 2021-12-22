@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.util.ChassisController;
 import org.firstinspires.ftc.teamcode.util.ImuController;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
+import org.firstinspires.ftc.teamcode.util.SliderController;
 import org.firstinspires.ftc.teamcode.util.initArgs;
 
 @Autonomous(group = "final")
@@ -37,6 +38,7 @@ public class AutonForCompetition extends LinearOpMode {
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ImuController imuController = new ImuController(robot,this);
+        SliderController sliderController = new SliderController(robot, this);
 //        ChassisController chassis = new ChassisController(robot.leftDrive, robot.rightDrive, this);
         waitForStart();
         encoderDrive(0.5, -8, -8, 2);
