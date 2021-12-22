@@ -23,17 +23,13 @@ public class AutonForCompetition extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 4;
     static final double COUNTS_PER_INCH = (COUNTS_PER_REVOLUTION * SPROCKET_REDUCTION * GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
-    DcMotor carousel;
-    Servo bucket;
+
 
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
-        carousel = hardwareMap.dcMotor.get("carousel");
-        carousel.setDirection(DcMotorSimple.Direction.REVERSE);
-        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        bucket = hardwareMap.servo.get("bucket");
+
 
         robot.init(hardwareMap, this, initArgs.CALIBRATE_IMU);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -48,18 +44,18 @@ public class AutonForCompetition extends LinearOpMode {
         encoderDrive(0.4, 11.7, 11.7, 5);
         encoderDrive(0.2, 2, 2, 3);
         sleep(1000);
-        carousel.setPower(1);
+        robot.carousel.setPower(1);
         sleep(2500);
-        carousel.setPower(0);
+        robot.carousel.setPower(0);
         sleep(500);
         encoderDrive(0.5, -38.3, -38.3, 5);
 //        sleep(1000);
-        bucket.setPosition(1.0);
+        robot.bucket.setPosition(1.0);
         sleep(2000);
         encoderDrive(0.5, 10, 10, 5);
         imuController.rotate(-30, 0.5);
         encoderDrive(0.75, -75, -75, 10);
-        bucket.setPosition(0.5);
+        robot.bucket.setPosition(0.5);
 
 //        encoderDrive(0.75 , -37, -37 , 10);
 //        encoderDrive(0.75 , 5, 5 , 5);

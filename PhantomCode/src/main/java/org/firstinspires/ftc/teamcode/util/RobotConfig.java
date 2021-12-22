@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 //import org.openftc.easyopencv.OpenCvWebcam;
@@ -31,6 +32,9 @@ public class   RobotConfig {
 
     public BNO055IMU imu;
 
+    public DcMotor carousel;
+    public Servo bucket;
+
     public void init(HardwareMap hwMap, LinearOpMode ln) {
         ln.telemetry.addLine("Initializing Robot...");
         ln.telemetry.update();
@@ -46,6 +50,11 @@ public class   RobotConfig {
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         isInit = true;
+
+        carousel = hwMap.dcMotor.get("carousel");
+        carousel.setDirection(DcMotorSimple.Direction.REVERSE);
+        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bucket = hwMap.servo.get("bucket");
 
         ln.telemetry.addLine("Initialization Complete!");
         ln.telemetry.update();
@@ -65,6 +74,10 @@ public class   RobotConfig {
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        carousel = hwMap.dcMotor.get("carousel");
+        carousel.setDirection(DcMotorSimple.Direction.REVERSE);
+        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bucket = hwMap.servo.get("bucket");
 
         if (args == initArgs.CALIBRATE_IMU) {
             InitializeIMUParameters(hwMap, ln);
