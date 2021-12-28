@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.util;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.util.SliddyEnum;
 
 public class SliderController {
 
@@ -10,8 +11,15 @@ public class SliderController {
     LinearOpMode linearOpMode;
     private ElapsedTime runtime = new ElapsedTime();
 
+    //TODO: Edit this
+    private final int BOT_POSITION = 0;
+    private final int MID_POSITION = 50;
+    private final int TOP_POSITION = 100;
+    
     public SliderController(RobotConfig robot, LinearOpMode linearOpMode) {
         this.robot = robot;
+        robot.slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     static final double COUNTS_PER_REVOLUTION = 288;
@@ -19,7 +27,48 @@ public class SliderController {
 //    static final double GEAR_REDUCTION = ;
     static final double SPOOL_DIAMETER_INCHES = 1.5;
     static final double COUNTS_PER_INCH = (COUNTS_PER_REVOLUTION) / (SPOOL_DIAMETER_INCHES * Math.PI);
+    
+    public void goToPosition(double speed, SliddyEnum pos, double timeoutS) {
+        int target;
+        switch (pos)
+            case TOP:
+                target = TOP_POSITION; break;
+            case MID:
+                target = MID_POSITION; break;
+            case BOT:
+                target = BOT_POSITION; break;
 
+        robot.slider.setTargetPosition(target);
+        robot.slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.slider.setPower(Math.abs(speed);
+        
+        while (linearOpMode.opModeIsActive() &&
+              (runtime.seconds() < timeoutS) &&
+              (robot.slider.isBusy())) {
+
+                // Display it for the driver.
+                linearOpMode.telemetry.addData("Path1",  "Running to %7d", target);
+                linearOpMode.telemetry.addData("Path2",  "Running at %7d",
+                        robot.slider.getCurrentPosition()
+//                        ,robot.rightDrive.motor1.getCurrentPosition());
+                );
+                linearOpMode.telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.slider.setPower(0);
+
+//             robot.slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            // Turn off RUN_TO_POSITION
+            robot.slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                              
+    }
+    
+                              
+    // Don't use, potentionally dangerous
+    @Deprecated
     public void encoderSlider(double speed,
                              double inches,
                              double timeoutS) {
