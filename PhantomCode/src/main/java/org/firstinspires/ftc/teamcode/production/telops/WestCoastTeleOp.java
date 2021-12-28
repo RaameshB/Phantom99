@@ -3,12 +3,9 @@ package org.firstinspires.ftc.teamcode.production.telops;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.util.MotorCluster;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
-import org.firstinspires.ftc.teamcode.util.SliddyEnum;
 
 
 @TeleOp(group = "final")

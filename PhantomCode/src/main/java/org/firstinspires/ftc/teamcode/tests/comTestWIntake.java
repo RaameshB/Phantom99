@@ -5,12 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.util.MotorCluster;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
-import org.firstinspires.ftc.teamcode.util.SliddyEnum;
 
 
 @TeleOp(group = "final")
@@ -24,8 +21,6 @@ public class  comTestWIntake extends LinearOpMode {
     double carouselSpinnerPower;
     double intakePower;
 
-
-    SliddyEnum Pos;
     DcMotor carousel;
 //    DcMotor intake;
 
@@ -136,6 +131,10 @@ public class  comTestWIntake extends LinearOpMode {
                 leftDrivePower *= powerMult / 10;
                 rightDrivePower *= powerMult / 10;
 
+//==================================================================================
+
+
+
 //            if(gamepad1.a && !isAPressed){
 //                tempPower = rightDrivePower;
 //                rightDrivePower = -leftDrivePower;
@@ -184,7 +183,7 @@ public class  comTestWIntake extends LinearOpMode {
 //
 //            }
 
-
+//===============================================================================================
                 telemetry.addData("powerMult: ", powerMult);
                 telemetry.addData("intakePower", intakePower);
                 telemetry.addData("carouselSpinner", carouselSpinnerPower);
