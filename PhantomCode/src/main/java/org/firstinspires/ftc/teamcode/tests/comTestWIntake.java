@@ -5,12 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.util.MotorCluster;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
-import org.firstinspires.ftc.teamcode.util.SliddyEnum;
+import org.firstinspires.ftc.teamcode.util.enums.SliddyEnum;
 
 
 @TeleOp(group = "final")

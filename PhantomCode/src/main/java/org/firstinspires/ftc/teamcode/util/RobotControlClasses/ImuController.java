@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode.util.RobotControlClasses;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,8 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
-import java.util.Locale;
+import org.firstinspires.ftc.teamcode.util.RobotConfig;
 
 public class ImuController {
     BNO055IMU imu;
@@ -25,31 +24,31 @@ public class ImuController {
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
     }
 
-//    public double getAngle() {
-//        double deltaAngle = angles.firstAngle - lastAngle;
-//
-//        if (deltaAngle < -180)
-//            deltaAngle += 360;
-//        else if (deltaAngle > 180)
-//            deltaAngle -= 360;
-//
-//        globalAngle += deltaAngle;
-//
-//        lastAngle = angles.firstAngle;
-//
-//        return globalAngle;
-//    }
+    //    public double getAngle() {
+    //        double deltaAngle = angles.firstAngle - lastAngle;
+    //
+    //        if (deltaAngle < -180)
+    //            deltaAngle += 360;
+    //        else if (deltaAngle > 180)
+    //            deltaAngle -= 360;
+    //
+    //        globalAngle += deltaAngle;
+    //
+    //        lastAngle = angles.firstAngle;
+    //
+    //        return globalAngle;
+    //    }
 
-//    public void imuTurn(double degrees, double gain) {
-//        double correction = getCorrection(gain);
-//        globalAngle = degrees;
-//        while(linearOpMode.opModeIsActive() && Math.abs(globalAngle) < 4) {
-//            robot.rightDrive.setPower(correction);
-//            robot.leftDrive.setPower(correction);
-//        }
-//        robot.rightDrive.setPower(0);
-//        robot.leftDrive.setPower(0);
-//    }
+    //    public void imuTurn(double degrees, double gain) {
+    //        double correction = getCorrection(gain);
+    //        globalAngle = degrees;
+    //        while(linearOpMode.opModeIsActive() && Math.abs(globalAngle) < 4) {
+    //            robot.rightDrive.setPower(correction);
+    //            robot.leftDrive.setPower(correction);
+    //        }
+    //        robot.rightDrive.setPower(0);
+    //        robot.leftDrive.setPower(0);
+    //    }
 
     private void resetAngle()
     {
@@ -160,4 +159,3 @@ public class ImuController {
         resetAngle();
     }
 }
-;

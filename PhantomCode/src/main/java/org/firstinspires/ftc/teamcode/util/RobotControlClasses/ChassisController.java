@@ -1,20 +1,27 @@
-package org.firstinspires.ftc.teamcode.production.autons;
+package org.firstinspires.ftc.teamcode.util.RobotControlClasses;
 
-import  com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import ImuController;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
 
-import SliderController;
-import org.firstinspires.ftc.teamcode.util.enums.initArgs;
+public class ChassisController {
 
-@Autonomous(group = "final")
-public class AutonForCompetition extends LinearOpMode {
+    RobotConfig.MotorCluster leftMotors;
+    RobotConfig.MotorCluster rightMotors;
+    RobotConfig robot;
+    LinearOpMode linearOpMode;
+    ElapsedTime runtime = new ElapsedTime();
 
-    RobotConfig robot = new RobotConfig();
+    public ChassisController(RobotConfig robot, LinearOpMode linearOpMode) {
+        this.robot = robot;
+        leftMotors = this.robot.leftDrive;
+        rightMotors = this.robot.rightDrive;
+        this.linearOpMode = linearOpMode;
+    }
+
+    ElapsedTime stopwatch = new ElapsedTime();
 
     static final double COUNTS_PER_REVOLUTION = 1120;
     static final double SPROCKET_REDUCTION = 1.5;
@@ -22,36 +29,31 @@ public class AutonForCompetition extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 4;
     static final double COUNTS_PER_INCH = (COUNTS_PER_REVOLUTION * SPROCKET_REDUCTION * GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
-    private ElapsedTime runtime = new ElapsedTime();
+    public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior behavior) {
+        leftMotors.setZeroPowerBehavior(behavior);
+        rightMotors.setZeroPowerBehavior(behavior);
+    }
 
-    @Override
-    public void runOpMode() throws InterruptedException {
+    public void setMode(DcMotor.RunMode runMode) {
+        leftMotors.setMode(runMode);
+        rightMotors.setMode(runMode);
+    }
 
+    public void setPower(double power) {
+        leftMotors.setPower(power);
+        rightMotors.setPower(power);
+    }
 
-        robot.init(hardwareMap, this, initArgs.CALIBRATE_IMU);
+    public void setTargetPosition(int targetPosition) {
+        leftMotors.setTargetPosition(targetPosition);
+        rightMotors.setTargetPosition(targetPosition);
+    }
+
+    public void resetEncoders() {
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ImuController imuController = new ImuController(robot,this);
-        SliderController sliderController = new SliderController(robot, this);
-        waitForStart();
-        encoderDrive(0.5, -8, -8, 2);
-        imuController.rotate(-35, 0.5);
-        encoderDrive(0.4, 11.7, 11.7, 5);
-        encoderDrive(0.2, 2, 2, 3);
-        sleep(1000);
-        robot.carousel.setPower(1);
-        sleep(2500);
-        robot.carousel.setPower(0);
-        sleep(500);
-        encoderDrive(0.5, -38.3, -38.3, 5);
-        robot.bucket.setPosition(1.0);
-        sleep(2000);
-        encoderDrive(0.5, 10, 10, 5);
-        imuController.rotate(-30, 0.5);
-        encoderDrive(0.75, -75, -75, 10);
-        robot.bucket.setPosition(0.5);
     }
 
     public void encoderDrive(double speed,
@@ -61,7 +63,7 @@ public class AutonForCompetition extends LinearOpMode {
         int newRightTarget;
 
         // Ensure that the opmode is still active
-        if (opModeIsActive()) {
+        if (linearOpMode.opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
             newLeftTarget = robot.leftDrive.motor1.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
@@ -85,16 +87,16 @@ public class AutonForCompetition extends LinearOpMode {
             // always end the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (opModeIsActive() &&
+            while (linearOpMode.opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (robot.leftDrive.motor1.isBusy() && robot.rightDrive.motor1.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                linearOpMode.telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                linearOpMode.telemetry.addData("Path2",  "Running at %7d :%7d",
                         robot.leftDrive.motor1.getCurrentPosition(),
                         robot.rightDrive.motor1.getCurrentPosition());
-                telemetry.update();
+                linearOpMode.telemetry.update();
             }
 
             // Stop all motion;
@@ -111,4 +113,30 @@ public class AutonForCompetition extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+
+    public double getAvgPosition() {
+        return (double) (leftMotors.getAvgPosition() + rightMotors.getAvgPosition())/2;
+    }
+
+    public boolean isBusy() {
+        return leftMotors.isBusy() || rightMotors.isBusy();
+    }
+
+//    public void encoderDrive(double power, double distInches, double timeoutS) {
+//        if (linearOpMode.isStopRequested()) {
+//            return;
+//        }
+//        //        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        //        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        int pos = (int) (getAvgPosition() + (distInches * COUNTS_PER_INCH));
+//        setTargetPosition(pos);
+//        stopwatch.reset();
+//        setPower(power);
+//        while(!linearOpMode.isStopRequested() && isBusy() && stopwatch.seconds() < timeoutS) {
+//            linearOpMode.telemetry.addData("TargetPos: ", pos);
+//            linearOpMode.telemetry.addData("AveragePosition: ", getAvgPosition());
+//        }
+//        setPower(0);
+//    }
 }

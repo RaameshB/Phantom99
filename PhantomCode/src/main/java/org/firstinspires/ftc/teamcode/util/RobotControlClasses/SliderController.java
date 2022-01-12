@@ -1,8 +1,10 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode.util.RobotControlClasses;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.util.RobotConfig;
 
 public class SliderController {
 
@@ -15,35 +17,35 @@ public class SliderController {
     }
 
     static final double COUNTS_PER_REVOLUTION = 288;
-//    static final double SPROCKET_REDUCTION = 1.5;
-//    static final double GEAR_REDUCTION = ;
+    //    static final double SPROCKET_REDUCTION = 1.5;
+    //    static final double GEAR_REDUCTION = ;
     static final double SPOOL_DIAMETER_INCHES = 1.5;
     static final double COUNTS_PER_INCH = (COUNTS_PER_REVOLUTION) / (SPOOL_DIAMETER_INCHES * Math.PI);
 
     public void encoderSlider(double speed,
-                             double inches,
-                             double timeoutS) {
+                              double inches,
+                              double timeoutS) {
         int newTarget;
-//        int newRightTarget;
+        //        int newRightTarget;
 
         // Ensure that the opmode is still active
         if (linearOpMode.opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
             newTarget = robot.slider.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
-//            newRightTarget = robot.rightDrive.motor1.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            //            newRightTarget = robot.rightDrive.motor1.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
             robot.slider.setTargetPosition(newTarget);
-//            robot.rightDrive.setTargetPosition(newRightTarget);
+            //            robot.rightDrive.setTargetPosition(newRightTarget);
 
 
             // Turn On RUN_TO_POSITION
             robot.slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
             robot.slider.setPower(Math.abs(speed));
-//            robot.rightDrive.setPower(Math.abs(speed));
+            //            robot.rightDrive.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -59,7 +61,7 @@ public class SliderController {
                 linearOpMode.telemetry.addData("Path1",  "Running to %7d", newTarget);
                 linearOpMode.telemetry.addData("Path2",  "Running at %7d",
                         robot.slider.getCurrentPosition()
-//                        ,robot.rightDrive.motor1.getCurrentPosition());
+                        //                        ,robot.rightDrive.motor1.getCurrentPosition());
                 );
                 linearOpMode.telemetry.update();
             }
@@ -68,14 +70,15 @@ public class SliderController {
             robot.slider.setPower(0);
 
             robot.slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//            robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            //            robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             // Turn off RUN_TO_POSITION
             robot.slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //            robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
         }
     }
 
 }
+
