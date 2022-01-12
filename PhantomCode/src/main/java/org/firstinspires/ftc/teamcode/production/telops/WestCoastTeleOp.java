@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
-import org.firstinspires.ftc.teamcode.util.enums.SliddyEnum;
 
 
 @TeleOp(group = "final")
