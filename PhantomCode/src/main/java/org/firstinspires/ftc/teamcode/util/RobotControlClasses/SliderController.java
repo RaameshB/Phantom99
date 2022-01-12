@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.util.RobotControlClasses;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.util.SliddyEnum;
 
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
+import org.firstinspires.ftc.teamcode.util.enums.SliderEnum;
 
 public class SliderController {
 
@@ -30,19 +30,24 @@ public class SliderController {
     static final double SPOOL_DIAMETER_INCHES = 1.5;
     static final double COUNTS_PER_INCH = (COUNTS_PER_REVOLUTION) / (SPOOL_DIAMETER_INCHES * Math.PI);
     
-    public void goToPosition(double speed, SliddyEnum pos, double timeoutS) {
+    public void goToPosition(double speed, SliderEnum pos, double timeoutS) {
         int target;
-        switch (pos)
+        switch (pos) {
             case TOP:
-                target = TOP_POSITION; break;
+                target = TOP_POSITION;
+                break;
             case MID:
-                target = MID_POSITION; break;
+                target = MID_POSITION;
+                break;
             case BOT:
-                target = BOT_POSITION; break;
-
+                target = BOT_POSITION;
+                break;
+            default:
+                target = BOT_POSITION;
+        }
         robot.slider.setTargetPosition(target);
         robot.slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.slider.setPower(Math.abs(speed);
+        robot.slider.setPower(Math.abs(speed));
         
         while (linearOpMode.opModeIsActive() &&
               (runtime.seconds() < timeoutS) &&

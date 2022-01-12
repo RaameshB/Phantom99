@@ -5,10 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import ImuController;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
 
-import SliderController;
+import org.firstinspires.ftc.teamcode.util.RobotControlClasses.ImuController;
+import org.firstinspires.ftc.teamcode.util.RobotControlClasses.SliderController;
 import org.firstinspires.ftc.teamcode.util.enums.initArgs;
 
 @Autonomous(group = "final")

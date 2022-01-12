@@ -19,8 +19,7 @@ public class  WestCoastTeleOp extends LinearOpMode {
     double carouselSpinnerPower;
     double intakePower;
 
-
-    SliddyEnum Pos;
+    
     DcMotor carousel;
 //    DcMotor intake;
 
