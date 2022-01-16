@@ -127,9 +127,10 @@ public class  comTestWIntake extends LinearOpMode {
                 SSL.setPower(0);
                 SSR.setPower(0);
                 isIntakeOn = false;
+            }
 
-                leftDrivePower *= powerMult / 10;
-                rightDrivePower *= powerMult / 10;
+            leftDrivePower *= powerMult / 10;
+            rightDrivePower *= powerMult / 10;
 
 //==================================================================================
 
@@ -143,17 +144,19 @@ public class  comTestWIntake extends LinearOpMode {
 //            }
 
 
-                robot.leftDrive.setPower(leftDrivePower);
-                robot.rightDrive.setPower(rightDrivePower);
+            robot.leftDrive.setPower(leftDrivePower);
+            robot.rightDrive.setPower(rightDrivePower);
 //            carousel.setPower(carouselSpinnerPower);
 
-                if (gamepad1.right_trigger > 0.5) {
-                    carousel.setPower(-1.0);
-                } else {
-                    carousel.setPower(0);
-                }
+            if (gamepad1.right_trigger > 0.5) {
+                carousel.setPower(-1.0);
+            } else {
+                carousel.setPower(0);
+            }
 
-                //
+
+
+            //
 //
 //            intake.setPower(intakePower);
 
@@ -184,13 +187,12 @@ public class  comTestWIntake extends LinearOpMode {
 //            }
 
 //===============================================================================================
-                telemetry.addData("powerMult: ", powerMult);
-                telemetry.addData("intakePower", intakePower);
-                telemetry.addData("carouselSpinner", carouselSpinnerPower);
-                telemetry.update();
-                idle();
+            telemetry.addData("powerMult: ", powerMult);
+            telemetry.addData("intakePower", intakePower);
+            telemetry.addData("carouselSpinner", carouselSpinnerPower);
+            telemetry.update();
+            idle();
 
-            }
         }
     }
 }

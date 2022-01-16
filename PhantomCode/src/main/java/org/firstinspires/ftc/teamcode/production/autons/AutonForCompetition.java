@@ -52,6 +52,7 @@ public class AutonForCompetition extends LinearOpMode {
         imuController.rotate(-30, 0.5);
         encoderDrive(0.75, -75, -75, 10);
         robot.bucket.setPosition(0.5);
+        sleep(2000);
     }
 
     public void encoderDrive(double speed,

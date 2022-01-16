@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.util;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -38,6 +39,9 @@ public class   RobotConfig {
 
     public DcMotor slider;
 
+    public CRServo leftIntakeSpinnerMotor, rightIntakeSpinnerMotor;
+    public Servo intakeRotationServo;
+
     public void init(HardwareMap hwMap, LinearOpMode ln) {
         ln.telemetry.addLine("Initializing Robot...");
         ln.telemetry.update();
@@ -64,6 +68,13 @@ public class   RobotConfig {
         slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        carousel = hwMap.get(DcMotor.class, "carousel");
+        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftIntakeSpinnerMotor = hwMap.crservo.get("L_SUC_SRV");
+        rightIntakeSpinnerMotor = hwMap.crservo.get("R_SUC_SRV");
+        rightIntakeSpinnerMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeRotationServo = hwMap.servo.get("INTK_ROT_SRV");
 
         ln.telemetry.addLine("Initialization Complete!");
         ln.telemetry.update();
