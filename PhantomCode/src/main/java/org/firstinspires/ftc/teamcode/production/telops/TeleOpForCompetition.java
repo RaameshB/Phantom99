@@ -109,11 +109,12 @@ public class TeleOpForCompetition extends LinearOpMode {
             }
 
             // Dumper Code
-            if (gamepad2.right_bumper) {
-                robot.bucket.setPosition(0);
-            } else {
-                robot.bucket.setPosition(1.0);
-            }
+            robot.bucket.setPosition(gamepad2.right_trigger);
+//            if (gamepad2.right_bumper) {
+//                robot.bucket.setPosition(1.0);
+//            } else {
+//                robot.bucket.setPosition(0);
+//            }
 
             telemetry.update();
             idle();

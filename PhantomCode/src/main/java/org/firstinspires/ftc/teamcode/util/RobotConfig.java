@@ -52,6 +52,8 @@ public class   RobotConfig {
         bucket = hwMap.servo.get("bucket");
 
         slider = hwMap.dcMotor.get("sliderMotor");
+        slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         carousel = hwMap.get(DcMotor.class, "carousel");
 
