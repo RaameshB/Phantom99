@@ -81,6 +81,7 @@ public class TeleOpForCompetition extends LinearOpMode {
                 } else {
                     robot.intakeRotationServo.setPosition(1);
                 }
+                isIntakeUp = !isIntakeUp;
                 isTwoLeftBumpPressed = true;
             } else if (!gamepad2.left_bumper) {
                 isTwoLeftBumpPressed = false;
