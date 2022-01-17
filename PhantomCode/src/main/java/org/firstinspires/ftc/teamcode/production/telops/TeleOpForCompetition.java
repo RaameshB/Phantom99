@@ -30,7 +30,7 @@ public class TeleOpForCompetition extends LinearOpMode {
     boolean isBumpersPressed = false;
     boolean isIntakeUp = true;
     boolean isTwoLeftBumpPressed = false;
-
+    boolean bucketOverride = false;
 
 
     @Override
@@ -90,10 +90,15 @@ public class TeleOpForCompetition extends LinearOpMode {
             // Intake Spinner Servo Code
             if (gamepad2.dpad_up) {
                 intakePower = 1;
+                robot.bucket.setPosition(0);
+                bucketOverride = true;
             } else if (gamepad2.dpad_down) {
                 intakePower = -1;
+                robot.bucket.setPosition(0);
+                bucketOverride = true;
             } else {
                 intakePower = 0;
+                bucketOverride = false;
             }
             robot.rightIntakeSpinnerMotor.setPower(intakePower);
             robot.leftIntakeSpinnerMotor.setPower(intakePower);
@@ -109,12 +114,12 @@ public class TeleOpForCompetition extends LinearOpMode {
             }
 
             // Dumper Code
-            robot.bucket.setPosition(gamepad2.right_trigger);
-//            if (gamepad2.right_bumper) {
-//                robot.bucket.setPosition(1.0);
-//            } else {
-//                robot.bucket.setPosition(0);
-//            }
+//            robot.bucket.setPosition(gamepad2.right_trigger);
+            if (gamepad2.right_bumper) {
+                robot.bucket.setPosition(1.0);
+            } else if (!bucketOverride) {
+                robot.bucket.setPosition(0.5);
+            }
 
             telemetry.update();
             idle();
