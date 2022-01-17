@@ -104,10 +104,9 @@ public class TeleOpForCompetition extends LinearOpMode {
             } else if (gamepad2.y) {
                 robot.slider.setPower(-0.85);
             } else {
-                robot.slider.setPower(0);
+                robot.slider.setPower(gamepad2.left_stick_y * 1.0);
+                robot.slider.setPower(gamepad2.left_stick_y * 1.0);
             }
-            robot.slider.setPower(gamepad2.left_stick_y * 1.0);
-
 
             // Dumper Code
             if (gamepad2.right_bumper) {
