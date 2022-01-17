@@ -1,19 +1,15 @@
-package org.firstinspires.ftc.teamcode.production.autons;
+package org.firstinspires.ftc.teamcode.tests;
 
-import  com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
-
 import org.firstinspires.ftc.teamcode.util.RobotControlClasses.ImuController;
 import org.firstinspires.ftc.teamcode.util.RobotControlClasses.SliderController;
 import org.firstinspires.ftc.teamcode.util.enums.initArgs;
 
-@Autonomous(group = "final")
-public class AutonForCompetition extends LinearOpMode {
-
+public class OpenCvAuton extends LinearOpMode {
     RobotConfig robot = new RobotConfig();
 
     static final double COUNTS_PER_REVOLUTION = 1120;
