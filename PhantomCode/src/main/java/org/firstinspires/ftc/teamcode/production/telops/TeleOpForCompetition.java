@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.util.RobotConfig;
 
 
 @TeleOp(group = "final")
-public class  WestCoastTeleOp extends LinearOpMode {
+public class TeleOpForCompetition extends LinearOpMode {
 
     RobotConfig robot = new RobotConfig();
 
@@ -24,7 +24,7 @@ public class  WestCoastTeleOp extends LinearOpMode {
 //    DcMotor carousel;
 //    DcMotor intake;
 
-    Servo basketDump;
+//    Servo basketDump;
     float powerMult = 10;
 
     boolean isBumpersPressed = false;
