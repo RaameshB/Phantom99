@@ -99,20 +99,20 @@ public class TeleOpForCompetition extends LinearOpMode {
 
             // Slider Code
             if (gamepad2.a) {
-                robot.slider.setPower(0.2);
+                robot.slider.setPower(0.5);
             } else if (gamepad2.y) {
-                robot.slider.setPower(-0.2);
+                robot.slider.setPower(-0.5);
             } else {
                 robot.slider.setPower(0);
             }
-            robot.slider.setPower(gamepad2.left_stick_y * 0.3);
+            robot.slider.setPower(gamepad2.left_stick_y * 0.7);
 
 
             // Dumper Code
             if (gamepad2.right_bumper) {
-                robot.bucket.setPosition(1.0);
+                robot.bucket.setPosition(0);
             } else {
-                robot.bucket.setPosition(0.5);
+                robot.bucket.setPosition(1.0);
             }
 
             telemetry.update();

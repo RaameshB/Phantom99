@@ -49,34 +49,45 @@ public class   RobotConfig {
         rightDrive.setMotors("rightDrive1", "rightDrive2", ln.hardwareMap);
         leftDrive.setMotors("leftDrive1", "leftDrive2", ln.hardwareMap);
 
+        bucket = hwMap.servo.get("bucket");
+
+        slider = hwMap.dcMotor.get("sliderMotor");
+
+        carousel = hwMap.get(DcMotor.class, "carousel");
+
+        leftIntakeSpinnerMotor = hwMap.crservo.get("L_SUC_SRV");
+        rightIntakeSpinnerMotor = hwMap.crservo.get("R_SUC_SRV");
+
+        intakeRotationServo = hwMap.servo.get("INTK_ROT_SRV");
+
+
         rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        isInit = true;
+
 
 //        carousel = hwMap.dcMotor.get("carousel");
 //        carousel.setDirection(DcMotorSimple.Direction.REVERSE);
 //        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        bucket = hwMap.servo.get("bucket");
 
-        slider = hwMap.dcMotor.get("sliderMotor");
+
+
         slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        carousel = hwMap.get(DcMotor.class, "carousel");
+
         carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftIntakeSpinnerMotor = hwMap.crservo.get("L_SUC_SRV");
-        rightIntakeSpinnerMotor = hwMap.crservo.get("R_SUC_SRV");
+
         rightIntakeSpinnerMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        intakeRotationServo = hwMap.servo.get("INTK_ROT_SRV");
 
         InitializeIMUParameters(hwMap, ln);
 
+        isInit = true;
         ln.telemetry.addLine("Initialization Complete!");
         ln.telemetry.update();
     }
