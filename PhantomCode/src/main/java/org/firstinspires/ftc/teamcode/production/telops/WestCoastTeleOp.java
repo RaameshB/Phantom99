@@ -21,7 +21,7 @@ public class  WestCoastTeleOp extends LinearOpMode {
     double intakePower;
 
     
-    DcMotor carousel;
+//    DcMotor carousel;
 //    DcMotor intake;
 
     Servo basketDump;
@@ -69,9 +69,9 @@ public class  WestCoastTeleOp extends LinearOpMode {
 
             // Carousel Code
             if(gamepad1.right_trigger > 0.5) {
-                carousel.setPower(-1.0);
+                robot.carousel.setPower(-1.0);
             } else {
-                carousel.setPower(0);
+                robot.carousel.setPower(0);
             }
 
             // Intake Lift Code

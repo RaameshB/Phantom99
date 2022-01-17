@@ -58,9 +58,9 @@ public class   RobotConfig {
 
         isInit = true;
 
-        carousel = hwMap.dcMotor.get("carousel");
-        carousel.setDirection(DcMotorSimple.Direction.REVERSE);
-        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+//        carousel = hwMap.dcMotor.get("carousel");
+//        carousel.setDirection(DcMotorSimple.Direction.REVERSE);
+//        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         bucket = hwMap.servo.get("bucket");
 
         slider = hwMap.dcMotor.get("sliderMotor");
