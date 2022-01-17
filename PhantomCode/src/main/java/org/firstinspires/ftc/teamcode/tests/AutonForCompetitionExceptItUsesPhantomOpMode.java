@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.util.PhantomOpMode2;
 
+@Disabled
 @Autonomous
 public class AutonForCompetitionExceptItUsesPhantomOpMode extends PhantomOpMode2 {
     @Override
