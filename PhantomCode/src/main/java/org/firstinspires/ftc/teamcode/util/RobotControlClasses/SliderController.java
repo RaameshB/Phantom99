@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
+import org.firstinspires.ftc.teamcode.util.enums.Positions;
 import org.firstinspires.ftc.teamcode.util.enums.SliderEnum;
 
 public class SliderController {
@@ -30,16 +31,16 @@ public class SliderController {
     static final double SPOOL_DIAMETER_INCHES = 1.5;
     static final double COUNTS_PER_INCH = (COUNTS_PER_REVOLUTION) / (SPOOL_DIAMETER_INCHES * Math.PI);
     
-    public void goToPosition(double speed, SliderEnum pos, double timeoutS) {
+    public void goToPosition(double speed, Positions pos, double timeoutS) {
         int target;
         switch (pos) {
-            case TOP:
+            case leftTop:
                 target = TOP_POSITION;
                 break;
-            case MID:
+            case midMid:
                 target = MID_POSITION;
                 break;
-            case BOT:
+            case rightBot:
                 target = BOT_POSITION;
                 break;
             default:

@@ -5,9 +5,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
+import org.firstinspires.ftc.teamcode.util.RobotControlClasses.CvWebcamController;
 import org.firstinspires.ftc.teamcode.util.RobotControlClasses.ImuController;
 import org.firstinspires.ftc.teamcode.util.RobotControlClasses.SliderController;
-import org.firstinspires.ftc.teamcode.util.enums.initArgs;
+import org.firstinspires.ftc.teamcode.util.enums.Positions;
 
 public class OpenCvAuton extends LinearOpMode {
     RobotConfig robot = new RobotConfig();
@@ -17,6 +18,8 @@ public class OpenCvAuton extends LinearOpMode {
     static final double GEAR_REDUCTION = 0.5;
     static final double WHEEL_DIAMETER_INCHES = 4;
     static final double COUNTS_PER_INCH = (COUNTS_PER_REVOLUTION * SPROCKET_REDUCTION * GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
+
+    Positions pos;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -31,7 +34,13 @@ public class OpenCvAuton extends LinearOpMode {
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ImuController imuController = new ImuController(robot,this);
         SliderController sliderController = new SliderController(robot, this);
+        CvWebcamController cvWebcamController = new CvWebcamController(robot);
         waitForStart();
+        cvWebcamController.startAsyncStream();
+        while (cvWebcamController.getPos() != Positions.stillProc) {
+            idle();
+        }
+        pos = cvWebcamController.getPos();
         encoderDrive(0.5, -8, -8, 2);
         imuController.rotate(-35, 0.5);
         encoderDrive(0.4, 11.7, 11.7, 5);
@@ -42,12 +51,14 @@ public class OpenCvAuton extends LinearOpMode {
         robot.carousel.setPower(0);
         sleep(500);
         encoderDrive(0.5, -38.3, -38.3, 5);
+        sliderController.goToPosition(0.8, pos, 10);
+        sleep(1000);
         robot.bucket.setPosition(1.0);
         sleep(2000);
+        robot.bucket.setPosition(0.5);
         encoderDrive(0.5, 10, 10, 5);
         imuController.rotate(-30, 0.5);
         encoderDrive(0.75, -75, -75, 10);
-        robot.bucket.setPosition(0.5);
         sleep(2000);
     }
 

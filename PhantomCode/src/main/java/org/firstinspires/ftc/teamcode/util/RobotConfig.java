@@ -8,14 +8,21 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.util.PhantomSecretStuff.vision.easyopencv.javaPipelines.PipelineMkTwo;
 import org.firstinspires.ftc.teamcode.util.enums.initArgs;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvPipeline;
+import org.openftc.easyopencv.OpenCvWebcam;
 //import org.openftc.easyopencv.OpenCvWebcam;
 
 
 public class   RobotConfig {
 
-    boolean isInit = false;
+    public boolean isInit = false;
 
     HardwareMap hwMap;
     LinearOpMode ln;
@@ -41,6 +48,9 @@ public class   RobotConfig {
 
     public CRServo leftIntakeSpinnerMotor, rightIntakeSpinnerMotor;
     public Servo intakeRotationServo;
+
+    public OpenCvWebcam cvWebcam;
+    public OpenCvPipeline cvPipeline = new PipelineMkTwo();
 
     public void init(HardwareMap hwMap, LinearOpMode ln) {
         ln.telemetry.addLine("Initializing Robot...");
@@ -88,6 +98,10 @@ public class   RobotConfig {
         rightIntakeSpinnerMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         InitializeIMUParameters(hwMap, ln);
+
+        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+        cvWebcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        cvWebcam.setMillisecondsPermissionTimeout(2500);
 
         isInit = true;
         ln.telemetry.addLine("Initialization Complete!");
