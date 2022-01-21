@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.util.RobotConfig;
 
 import java.util.ArrayList;
 
-@Autonomous
+//@Autonomous
 @TeleOp
 public class FindSliderPositions extends LinearOpMode {
 
