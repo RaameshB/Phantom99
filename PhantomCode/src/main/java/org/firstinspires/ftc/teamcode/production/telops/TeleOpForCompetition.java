@@ -75,18 +75,21 @@ public class TeleOpForCompetition extends LinearOpMode {
             }
 
             // Intake Lift Code
-            if (!isTwoLeftBumpPressed && gamepad2.left_bumper) {
-                if (isIntakeUp) {
-                    robot.intakeRotationServo.setPosition(0);
-                } else {
-                    robot.intakeRotationServo.setPosition(1);
+            try {
+                if (!isTwoLeftBumpPressed && gamepad2.left_bumper) {
+                    if (isIntakeUp) {
+                        robot.intakeRotationServo.setPosition(0.15);
+                    } else {
+                        robot.intakeRotationServo.setPosition(0.8);
+                    }
+                    isIntakeUp = !isIntakeUp;
+                    isTwoLeftBumpPressed = true;
+                } else if (!gamepad2.left_bumper) {
+                    isTwoLeftBumpPressed = false;
                 }
-                isIntakeUp = !isIntakeUp;
-                isTwoLeftBumpPressed = true;
-            } else if (!gamepad2.left_bumper) {
-                isTwoLeftBumpPressed = false;
-            }
+            } catch (Exception e) {
 
+            }
             // Intake Spinner Servo Code
             if (gamepad2.dpad_up) {
                 intakePower = 1;
@@ -100,17 +103,19 @@ public class TeleOpForCompetition extends LinearOpMode {
                 intakePower = 0;
                 bucketOverride = false;
             }
-            robot.rightIntakeSpinnerMotor.setPower(intakePower);
-            robot.leftIntakeSpinnerMotor.setPower(intakePower);
+            try {
+                robot.rightIntakeSpinnerMotor.setPower(intakePower);
+                robot.leftIntakeSpinnerMotor.setPower(intakePower);
+            } catch (Exception e) {
 
+            }
             // Slider Code
             if (gamepad2.a) {
-                robot.slider.setPower(0.85);
+                robot.slider.setPower(0.45);
             } else if (gamepad2.y) {
-                robot.slider.setPower(-0.85);
+                robot.slider.setPower(-0.45);
             } else {
-                robot.slider.setPower(gamepad2.left_stick_y * 1.0);
-                robot.slider.setPower(gamepad2.left_stick_y * 1.0);
+                robot.slider.setPower(gamepad2.right_stick_y * 0.60);
             }
 
             // Dumper Code
@@ -118,7 +123,7 @@ public class TeleOpForCompetition extends LinearOpMode {
             if (gamepad2.right_bumper) {
                 robot.bucket.setPosition(1.0);
             } else if (!bucketOverride) {
-                robot.bucket.setPosition(0.5);
+                robot.bucket.setPosition(0.25);
             }
 
             telemetry.update();

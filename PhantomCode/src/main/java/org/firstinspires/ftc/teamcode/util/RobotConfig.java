@@ -51,7 +51,7 @@ public class   RobotConfig {
     public Servo intakeRotationServo;
 
     public OpenCvWebcam cvWebcam;
-    public OpenCvPipeline cvPipeline = new PipelineMkTwo();
+
 
     public void init(HardwareMap hwMap, LinearOpMode ln) {
         ln.telemetry.addLine("Initializing Robot...");
@@ -67,11 +67,15 @@ public class   RobotConfig {
         slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         carousel = hwMap.get(DcMotor.class, "carousel");
+        try {
+            leftIntakeSpinnerMotor = hwMap.crservo.get("L_SUC_SRV");
+            rightIntakeSpinnerMotor = hwMap.crservo.get("R_SUC_SRV");
 
-        leftIntakeSpinnerMotor = hwMap.crservo.get("L_SUC_SRV");
-        rightIntakeSpinnerMotor = hwMap.crservo.get("R_SUC_SRV");
+            intakeRotationServo = hwMap.servo.get("INTK_ROT_SRV");
 
-        intakeRotationServo = hwMap.servo.get("INTK_ROT_SRV");
+        } catch (Exception e) {
+
+        }
 
 
         rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -96,8 +100,11 @@ public class   RobotConfig {
 
         carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        rightIntakeSpinnerMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        try {
+            rightIntakeSpinnerMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        } catch (Exception e) {
 
+        }
         InitializeIMUParameters(hwMap, ln);
 
         int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
@@ -127,10 +134,15 @@ public class   RobotConfig {
         carousel = hwMap.dcMotor.get("carousel");
         carousel.setDirection(DcMotorSimple.Direction.FORWARD);
         carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftIntakeSpinnerMotor = hwMap.crservo.get("L_SUC_SRV");
-        rightIntakeSpinnerMotor = hwMap.crservo.get("R_SUC_SRV");
-        rightIntakeSpinnerMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        intakeRotationServo = hwMap.servo.get("INTK_ROT_SRV");
+        try {
+            leftIntakeSpinnerMotor = hwMap.crservo.get("L_SUC_SRV");
+            rightIntakeSpinnerMotor = hwMap.crservo.get("R_SUC_SRV");
+            rightIntakeSpinnerMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            intakeRotationServo = hwMap.servo.get("INTK_ROT_SRV");
+        } catch (Exception e) {
+
+        }
+
         bucket = hwMap.servo.get("bucket");
 
         if (args == initArgs.CALIBRATE_IMU) {

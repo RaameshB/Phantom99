@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.util.RobotControlClasses;
 
+import org.firstinspires.ftc.teamcode.util.PhantomSecretStuff.vision.easyopencv.javaPipelines.PipelineMkThree;
 import org.firstinspires.ftc.teamcode.util.PhantomSecretStuff.vision.easyopencv.javaPipelines.PipelineMkTwo;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
 import org.firstinspires.ftc.teamcode.util.enums.Positions;
@@ -10,7 +11,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 public class CvWebcamController {
     OpenCvWebcam webcam;
     RobotConfig hardware;
-    PipelineMkTwo pipeline = new PipelineMkTwo();
+    PipelineMkThree pipeline = new PipelineMkThree();
     public boolean hasStreamStarted = false;
 
     public CvWebcamController (RobotConfig robot) {
@@ -18,6 +19,8 @@ public class CvWebcamController {
         webcam = hardware.cvWebcam;
         webcam.setPipeline(pipeline);
     }
+
+
 
 
     public void startAsyncStream() {
@@ -45,7 +48,7 @@ public class CvWebcamController {
                  * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
                  * away from the user.
                  */
-                webcam.startStreaming(1920, 720, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -60,6 +63,27 @@ public class CvWebcamController {
         hasStreamStarted = true;
     }
 
+    public void openSyncCam() {
+        if (!hardware.isInit) {
+            throw new IllegalStateException("Robot may not be properly init (likely a programming issue)");
+        }
+        webcam.openCameraDevice();
+    }
+
+    public void startSyncStream() {
+        if (!hardware.isInit) {
+            throw new IllegalStateException("Robot may not be properly init (likely a programming issue)");
+        }
+        webcam.startStreaming(1280, 720);
+    }
+
+    public void stopSyncStream() {
+        if (!hardware.isInit) {
+            throw new IllegalStateException("Robot may not be properly init (likely a programming issue)");
+        }
+        webcam.stopStreaming();
+    }
+
     public Positions getPos() {
 
         if (!hasStreamStarted) {
@@ -67,6 +91,24 @@ public class CvWebcamController {
         }
 
         return pipeline.getPos();
+    }
+
+    public double getLeftValue() {
+
+        if (!hasStreamStarted) {
+            throw new IllegalStateException("The webcam has seemingly isn't on... (likely a programming issue)");
+        }
+
+        return pipeline.getLeftValue();
+    }
+
+    public double getMidValue() {
+
+        if (!hasStreamStarted) {
+            throw new IllegalStateException("The webcam has seemingly isn't on... (likely a programming issue)");
+        }
+
+        return pipeline.getMidValue();
     }
 
 }
