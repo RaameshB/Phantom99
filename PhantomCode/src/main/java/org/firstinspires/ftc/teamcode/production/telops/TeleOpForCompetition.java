@@ -37,7 +37,6 @@ public class TeleOpForCompetition extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap, this);
 
-
         waitForStart();
 
         while(!isStopRequested()) {
@@ -93,16 +92,16 @@ public class TeleOpForCompetition extends LinearOpMode {
             // Intake Spinner Servo Code
             if (gamepad2.dpad_up) {
                 intakePower = 1;
-                robot.bucket.setPosition(0);
-                bucketOverride = true;
+//                robot.bucket.setPosition(0);
+//                bucketOverride = true;
             } else if (gamepad2.dpad_down) {
                 intakePower = -1;
-                robot.bucket.setPosition(0);
-                bucketOverride = true;
-            } else {
-                intakePower = 0;
-                bucketOverride = false;
-            }
+//                robot.bucket.setPosition(0);
+//                bucketOverride = true;
+            } // else {
+//                intakePower = 0;
+//                bucketOverride = false;
+//            }
             try {
                 robot.rightIntakeSpinnerMotor.setPower(intakePower);
                 robot.leftIntakeSpinnerMotor.setPower(intakePower);
@@ -110,22 +109,31 @@ public class TeleOpForCompetition extends LinearOpMode {
 
             }
             // Slider Code
-            if (gamepad2.a) {
+            if (gamepad2.a && robot.slider.getCurrentPosition() > -807) {
                 robot.slider.setPower(0.45);
-            } else if (gamepad2.y) {
+            } else if (gamepad2.y && robot.slider.getCurrentPosition() < 3) {
                 robot.slider.setPower(-0.45);
-            } else {
-                robot.slider.setPower(gamepad2.right_stick_y * 0.60);
+            } else if (robot.slider.getCurrentPosition() < 3 && gamepad2.a && robot.slider.getCurrentPosition() > -807) {
+                robot.slider.setPower(gamepad2.right_stick_y * 0.80);
             }
+            //sliderpos values: 0, -78, -807
+            if (robot.slider.getCurrentPosition() < -78) {
+                bucketOverride = true;
+                robot.bucket.setPosition(0);
+            } else {
+                bucketOverride = false;
+            }
+
 
             // Dumper Code
 //            robot.bucket.setPosition(gamepad2.right_trigger);
             if (gamepad2.right_bumper) {
                 robot.bucket.setPosition(1.0);
             } else if (!bucketOverride) {
-                robot.bucket.setPosition(0.25);
+                robot.bucket.setPosition(0.5);
             }
 
+            telemetry.addData("Slider Pos: ", robot.slider.getCurrentPosition());
             telemetry.update();
             idle();
         }

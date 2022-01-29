@@ -116,6 +116,69 @@ public class   RobotConfig {
         ln.telemetry.update();
     }
 
+    public void initCloseCv(HardwareMap hwMap, LinearOpMode ln) {
+        ln.telemetry.addLine("Initializing Robot...");
+        ln.telemetry.update();
+
+        rightDrive.setMotors("rightDrive1", "rightDrive2", ln.hardwareMap);
+        leftDrive.setMotors("leftDrive1", "leftDrive2", ln.hardwareMap);
+
+        bucket = hwMap.servo.get("bucket");
+
+        slider = hwMap.dcMotor.get("sliderMotor");
+        slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        carousel = hwMap.get(DcMotor.class, "carousel");
+        try {
+            leftIntakeSpinnerMotor = hwMap.crservo.get("L_SUC_SRV");
+            rightIntakeSpinnerMotor = hwMap.crservo.get("R_SUC_SRV");
+
+            intakeRotationServo = hwMap.servo.get("INTK_ROT_SRV");
+
+        } catch (Exception e) {
+
+        }
+
+
+        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
+//        carousel = hwMap.dcMotor.get("carousel");
+//        carousel.setDirection(DcMotorSimple.Direction.REVERSE);
+//        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+
+
+        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        carousel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        try {
+            rightIntakeSpinnerMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        } catch (Exception e) {
+
+        }
+        InitializeIMUParameters(hwMap, ln);
+
+      /*  int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+        cvWebcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        cvWebcam.setMillisecondsPermissionTimeout(2500);*/
+
+        isInit = true;
+        ln.telemetry.addLine("Initialization Complete!");
+        ln.telemetry.update();
+    }
+
     @Deprecated
     public void init(HardwareMap hwMap, LinearOpMode ln, initArgs args) {
         ln.telemetry.addLine("Initializing Robot...");
