@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.util.RobotControlClasses;
 
+import org.firstinspires.ftc.teamcode.util.PhantomSecretStuff.vision.easyopencv.javaPipelines.PipelineMkFour;
 import org.firstinspires.ftc.teamcode.util.PhantomSecretStuff.vision.easyopencv.javaPipelines.PipelineMkThree;
 import org.firstinspires.ftc.teamcode.util.PhantomSecretStuff.vision.easyopencv.javaPipelines.PipelineMkTwo;
 import org.firstinspires.ftc.teamcode.util.RobotConfig;
@@ -11,7 +12,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 public class CvWebcamController {
     OpenCvWebcam webcam;
     RobotConfig hardware;
-    PipelineMkThree pipeline = new PipelineMkThree();
+    PipelineMkFour pipeline = new PipelineMkFour();
     public boolean hasStreamStarted = false;
 
     public CvWebcamController (RobotConfig robot) {

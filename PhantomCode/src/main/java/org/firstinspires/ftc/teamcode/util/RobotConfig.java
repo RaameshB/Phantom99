@@ -107,9 +107,13 @@ public class   RobotConfig {
         }
         InitializeIMUParameters(hwMap, ln);
 
-        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
-        cvWebcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        cvWebcam.setMillisecondsPermissionTimeout(2500);
+        try {
+            int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+            cvWebcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+            cvWebcam.setMillisecondsPermissionTimeout(2500);
+        } catch (Exception e) {
+            ln.telemetry.addLine("WARNING: Camera init may have failed, OpModes that use it might crash (try physically restarting the robot)");
+        }
 
         isInit = true;
         ln.telemetry.addLine("Initialization Complete!");

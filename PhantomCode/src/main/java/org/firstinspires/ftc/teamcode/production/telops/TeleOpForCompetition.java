@@ -73,22 +73,7 @@ public class TeleOpForCompetition extends LinearOpMode {
                 robot.carousel.setPower(0);
             }
 
-            // Intake Lift Code
-            try {
-                if (!isTwoLeftBumpPressed && gamepad2.left_bumper) {
-                    if (isIntakeUp) {
-                        robot.intakeRotationServo.setPosition(0.15);
-                    } else {
-                        robot.intakeRotationServo.setPosition(0.8);
-                    }
-                    isIntakeUp = !isIntakeUp;
-                    isTwoLeftBumpPressed = true;
-                } else if (!gamepad2.left_bumper) {
-                    isTwoLeftBumpPressed = false;
-                }
-            } catch (Exception e) {
 
-            }
             // Intake Spinner Servo Code
             if (gamepad2.dpad_up) {
                 intakePower = 1;
@@ -98,10 +83,28 @@ public class TeleOpForCompetition extends LinearOpMode {
                 intakePower = -1;
 //                robot.bucket.setPosition(0);
 //                bucketOverride = true;
-            } // else {
-//                intakePower = 0;
+            } else {
+                intakePower = 0;
 //                bucketOverride = false;
-//            }
+            }
+            // Intake Lift Code
+            try {
+                if (!isTwoLeftBumpPressed && gamepad2.left_bumper) {
+                    if (isIntakeUp) {
+                        robot.intakeRotationServo.setPosition(0.15);
+                    } else {
+                        robot.intakeRotationServo.setPosition(0.8);
+                        intakePower = -intakePower;
+                    }
+                    isIntakeUp = !isIntakeUp;
+                    isTwoLeftBumpPressed = true;
+                } else if (!gamepad2.left_bumper) {
+                    isTwoLeftBumpPressed = false;
+                }
+            } catch (Exception e) {
+
+            }
+
             try {
                 robot.rightIntakeSpinnerMotor.setPower(intakePower);
                 robot.leftIntakeSpinnerMotor.setPower(intakePower);
@@ -111,26 +114,32 @@ public class TeleOpForCompetition extends LinearOpMode {
             // Slider Code
             if (gamepad2.a && robot.slider.getCurrentPosition() > -807) {
                 robot.slider.setPower(0.45);
-            } else if (gamepad2.y && robot.slider.getCurrentPosition() < 3) {
+            } else if (gamepad2.y && robot.slider.getCurrentPosition() < -1) {
                 robot.slider.setPower(-0.45);
-            } else if (robot.slider.getCurrentPosition() < 3 && gamepad2.a && robot.slider.getCurrentPosition() > -807) {
+            } else if ((robot.slider.getCurrentPosition() < 1 && gamepad2.right_stick_y > 0.1) || (robot.slider.getCurrentPosition() > -807 && gamepad2.right_stick_y < -0.1)) {
                 robot.slider.setPower(gamepad2.right_stick_y * 0.80);
+            } else {
+                robot.slider.setPower(0);
             }
             //sliderpos values: 0, -78, -807
-            if (robot.slider.getCurrentPosition() < -78) {
-                bucketOverride = true;
-                robot.bucket.setPosition(0);
-            } else {
-                bucketOverride = false;
-            }
+//            if (robot.slider.getCurrentPosition() < -78) {
+//                bucketOverride = true;
+//                robot.bucket.setPosition(0);
+//            } else {
+//                bucketOverride = false;
+//            }
 
 
             // Dumper Code
 //            robot.bucket.setPosition(gamepad2.right_trigger);
-            if (gamepad2.right_bumper) {
-                robot.bucket.setPosition(1.0);
-            } else if (!bucketOverride) {
-                robot.bucket.setPosition(0.5);
+            if (robot.slider.getCurrentPosition() < -100) {
+                if (gamepad2.right_bumper) {
+                    robot.bucket.setPosition(1.0);
+                } else {
+                    robot.bucket.setPosition(0.5);
+                }
+            } else {
+                robot.bucket.setPosition(0);
             }
 
             telemetry.addData("Slider Pos: ", robot.slider.getCurrentPosition());
